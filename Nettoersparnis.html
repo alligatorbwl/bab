@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nettoersparnis</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+	Nettoersparnis
+  </header>
+  <main>
+	<p>	Lohnt es sich einen Kredit aufzunehmen, 
+		um eine Rechnung unter Skontoabzug zu bezahlen?
+	</p>
+	<table>
+		<tr>
+			<td>
+			Rechnungsbetrag: 
+			</td>
+			<td colspan="2">
+				<b id="rechnungsbetrag"></b> 
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Zahlungsbedingung:
+			</td>
+			<td colspan="2">
+				<b id="skontofrist"></b> Tage 
+				<b id="skontosatz"></b> % Skonto oder 
+				<b id="ziel"></b> Tage Ziel
+			</td>
+			<td> 
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Zinssatz: 
+			</td>		
+			<td colspan="2">
+				<b id="zinssatz"></b> % p.a. 
+			</td>
+			<td>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Skontobetrag:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf1">
+			</td>
+			<td>
+			<b id="skontobetrag"></b>  
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Kreditbetrag:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf2">
+			</td>
+			<td>
+			<b id="kreditbetrag"></b>  
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Kreditdauer:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf3">
+			</td>
+			<td>
+			<b id="kreditdauer"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Zinsbetrag:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf4">
+			</td>
+			<td>
+			<b id="zinsbetrag"></b>  
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Nettoersparnis:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf5">
+			</td>
+			<td>
+			<b id="nettoersparnis"></b>  
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Ergebnis:
+			</td>
+			<td>
+			<input type="text" size="8" id="tf6">
+			</td>
+			<td>
+			<b id="lohntsich"></b>  
+			</td>
+		</tr>
+	</table>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+	<script>
+		let rechnungsbetrag = 0;
+		let skontofrist = Math.floor(Math.random() * (20 - 5 + 1)) + 5;
+		let skontosatz = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+		let ziel = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+		let zinssatz = Math.floor(Math.random() * (16 - 8 + 1)) + 8;
+		let skontobetrag = rechnungsbetrag * skontosatz/100;
+		let kreditbetrag = rechnungsbetrag-skontobetrag;
+		let kreditdauer = ziel - skontofrist;
+		let zinsbetrag = kreditbetrag * zinssatz/100 * kreditdauer/360;
+		let nettoersparnis = skontobetrag - zinsbetrag;
+		let lohntsich = "Es ist egal, da die Nettoersparnis null ist.";
+		if(nettoersparnis>0){
+			lohntsich="Es lohnt sich, da die Nettoersparnis positiv ist."
+			}else{
+			lohntsich="Es lohnt sich nicht, da die Nettoersparnis negativ ist."
+		}
+
+		function neueAufgabe() {
+		rechnungsbetrag = Math.floor(Math.random() * (5000 - 500 + 1)) + 500;
+		skontofrist = Math.floor(Math.random() * (20 - 5 + 1)) + 5;
+		skontosatz = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+		ziel = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+		zinssatz = Math.floor(Math.random() * (16 - 8 + 1)) + 8;
+		skontobetrag = rechnungsbetrag * skontosatz/100;
+		kreditbetrag = rechnungsbetrag-skontobetrag;
+		kreditdauer = ziel - skontofrist;
+		zinsbetrag = kreditbetrag * zinssatz/100 * kreditdauer/360;
+		nettoersparnis = skontobetrag - zinsbetrag;
+		lohntsich = "Es ist egal, da die Nettoersparnis null ist.";
+		if(nettoersparnis>0){
+			lohntsich="Es lohnt sich, da die Nettoersparnis positiv ist."
+			}else{
+			lohntsich="Es lohnt sich nicht, da die Nettoersparnis negativ ist."
+		}
+		document.getElementById("rechnungsbetrag").innerHTML = rechnungsbetrag.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+		document.getElementById("skontofrist").innerHTML = skontofrist;
+		document.getElementById("skontosatz").innerHTML = skontosatz;
+		document.getElementById("ziel").innerHTML = ziel;
+		document.getElementById("zinssatz").innerHTML = zinssatz;
+		document.getElementById("skontobetrag").innerHTML = "";
+		document.getElementById("kreditdauer").innerHTML = "";
+		document.getElementById("kreditbetrag").innerHTML = "";
+		document.getElementById("zinsbetrag").innerHTML = "";
+		document.getElementById("nettoersparnis").innerHTML = "";
+		document.getElementById("lohntsich").innerHTML = "";
+		document.getElementById("tf1").value = "";
+		document.getElementById("tf2").value = "";
+		document.getElementById("tf3").value = "";
+		document.getElementById("tf4").value = "";
+		document.getElementById("tf5").value = "";
+		document.getElementById("tf6").value = "";
+		}
+
+		function loesen() {
+			document.getElementById("skontobetrag").innerHTML = skontobetrag.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("kreditdauer").innerHTML = kreditdauer+" Tage";
+			
+			document.getElementById("kreditbetrag").innerHTML = kreditbetrag.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("zinsbetrag").innerHTML = zinsbetrag.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("nettoersparnis").innerHTML = nettoersparnis.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("lohntsich").innerHTML = lohntsich;	
+		}
+	</script>
+  </body>
+</html>
