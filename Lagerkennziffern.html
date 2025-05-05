@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagerkennziffern</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+    Lagerkennziffern
+  </header>
+  <main class="grid_2spalten" >
+  <div class="spalteA">
+	<p>	Aus der Lagerhaltung liegen f&uuml;r das letzte Jahr diese Informationen vor. Der Einstandspreis der Waren betrug <b id="id_ep"></b>. Das im Lager gebundene Kapital k&ouml;nnte alternativ mit einer Verzinsung von <b id="id_zinssatz"></b> investiert werden. Berechne die Lagerkennziffern.</p>
+	<table style="text-align:center;">
+	 <tr><td>Datum</td><td>Zugang</td><td>Abgang</td><td>Bestand</td><td>    </td></tr>
+	 <tr><td><b>01.01.</b></td><td><b>-</b></td><td><b>-</b></td><td>			<b id="ab"></b>		 	 </td><td><b id="id1"></b></td></tr>
+	 <tr>	
+		<td><b id="tag1"></b></td>
+		<td><b id="zu1"></b></td>
+		<td><b id="ab1"></b></td>
+		<td><input type="text" size="4" id="tf1"></td>
+		<td><b id="best1"></b></td>
+	 </tr>
+	 <tr>	
+		<td><b id="tag2"></b></td>
+		<td><b id="zu2"></b></td>
+		<td><b id="ab2"></b></td>
+		<td><input type="text" size="4" id="tf2"></td>
+		<td><b id="best2"></b></td>
+	 </tr>
+	 <tr>	
+		<td><b id="tag3"></b></td>
+		<td><b id="zu3"></b></td>
+		<td><b id="ab3"></b></td>
+		<td><input type="text" size="4" id="tf3"></td>
+		<td><b id="best3"></b></td>
+	 </tr>
+	 <tr>	
+		<td><b id="tag4"></b></td>
+		<td><b id="zu4"></b></td>
+		<td><b id="ab4"></b></td>
+		<td><input type="text" size="4" id="tf4"></td>
+		<td><b id="best4"></b></td>
+	 </tr>
+	 <tr>	
+		<td><b id="tag5"></b></td>
+		<td><b id="zu5"></b></td>
+		<td><b id="ab5"></b></td>
+		<td><input type="text" size="4" id="tf5"></td>
+		<td><b id="best5"></b></td>
+	 </tr>
+	 <tr>	
+		<td><b id="tag6"></b></td>
+		<td><b id="zu6"></b></td>
+		<td><b id="ab6"></b></td>
+		<td><input type="text" size="4" id="tf6"></td>
+		<td><b id="best6"></b></td>
+	 </tr>
+	</table>
+
+	<table>
+		<tr>
+			<td>Durchschnittlicher Lagerbestand:</td>
+			<td><input type="text" size="4" id="tf7"></td>
+			<td><b id="tf_dLB"></b></td>
+		</tr>
+		<tr>
+			<td>Umschlagsh&auml;ufigkeit:</td>
+			<td><input type="text" size="4" id="tf8"></td>
+			<td><b id="umschl"></b></td>
+		</tr>
+		<tr>
+			<td>Durchschnittliche Lagerdauer:</td>
+			<td><input type="text" size="4" id="tf9"></td>
+			<td><b id="tf_LD"></b></td>
+		</tr>
+		<tr>
+			<td>Lagerzinssatz:</td>
+			<td><input type="text" size="4" id="tf10"></td>
+			<td><b id="id_lagerzinssatz"></b></td>
+		</tr>
+		<tr>
+			<td>Lagerzinsen:</td>
+			<td><input type="text" size="4" id="tf11"></td>
+			<td><b id="id_zinsen"></b></td>
+		</tr>
+	</table>
+  </div>
+  <div class="spalteB">	
+	<iframe width="949" height="534" src="https://www.youtube.com/embed/fMk1qh9hJbk" title="Lagerkennziffern" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+		let datum 		= 	new Date(null);
+		let datediff	=	0;
+		let anfbest		=	0;
+		const menge_array 		= [0,1,2,3,4,5];
+		const eb_array 			= [0,0,0,0,0,0];
+		const datediff_array	= [0,1,2,3,4,5];
+		const zugang_array		= [0,1,2,3,4,5];
+		const tf_bestaende = ["best1","best2","best3","best4","best5","best6","tf_dLB","umschl","id_zinsen","id_lagerzinssatz"];
+		const tf_eingaben = ["tf1","tf2","tf3","tf4","tf5","tf6","tf7","tf8","tf9","tf10","tf11",];
+		const monate_array = [0,0,0,0,0,0];
+		let summeBestaende = 0;
+		let rechenwegLB = "";
+		let dLB = 0;
+		let abgaenge = 0;
+		let umschlagshaeufigkeit=0;
+		let dLD=0;
+		let zinssatz=0;
+		let lagerzinssatz = 0;
+		let zinsen=0;
+		let ep=0;
+		let zzgl=0;
+				
+		function neueAufgabe() {
+			// Werte erstellen:
+			datum 		= 	new Date(null);
+			anfbest 	= 	Math.floor(Math.random() * (800 - 500 + 1)) + 500;
+						
+			for(let i=0; i<6; i++){
+				datediff_array[i]	=	Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+				menge_array[i]		=	Math.floor(Math.random() * (50 - 10 + 1)) + 10;
+				zugang_array[i]		=	Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+
+				if(i>0){				
+					if(zugang_array[i]==2){
+						eb_array[i] = eb_array[i-1]+menge_array[i];
+					}else{
+						eb_array[i] = eb_array[i-1]-menge_array[i];
+					}
+				}else{
+					if(zugang_array[i]==2){
+						eb_array[i] = anfbest+menge_array[i];
+					}else{
+						eb_array[i] = anfbest-menge_array[i];
+					}
+				}		
+			}	
+			
+			// Summe der Monatsendbestände berechnen:
+			let vormonat = 0;
+			let anzMonateZuDarauffolgendemMonat=0;
+			let monatsMultiplikator=0;
+			let month = 0;
+	
+			summeBestaende = anfbest;
+//alert(summeBestaende);
+	
+			datum = new Date(null);
+		
+			for( let i=0; i<6; i++){
+				datum.setDate(datum.getDate() + datediff_array[i]);
+				monate_array[i] = datum.getMonth()+1;	
+			}
+		
+			summeBestaende+=eb_array[5]*(13-monate_array[5]);
+//alert( eb_array[5]+"*"+(13-monate_array[5]) );
+			
+			for( let i=4; i>=0; i--){
+				if(monate_array[i]==monate_array[i+1]){
+					// Es handelt sich nicht um den 
+					// MonatsENDBESTAND, daher nicht addieren!
+				}else{
+					anzMonateZuDarauffolgendemMonat = monate_array[i+1]-monate_array[i];
+					summeBestaende+=eb_array[i]*anzMonateZuDarauffolgendemMonat;
+//alert( eb_array[i]+"*"+anzMonateZuDarauffolgendemMonat );	
+				
+					// Wenn der MonatsENDBESTAND der erste MonatsENDBESTAND ist,
+					// dann so oft Multiplizieren wie es der Monate-1 sind, z.B. 1 Mal 
+					// wenn der Februar der erste MonatsENDBESTAND ist.
+					if(monate_array[i]==monate_array[0]){
+							// Erste Monatsendbestand gefunden!
+							summeBestaende+=anfbest*(monate_array[0]-1);
+//alert( "1. EB nich Januar: "+ eb_array[i]+"*"+(monate_array[0]-1) );
+					}					
+
+				}
+			}
+			
+			dLB = summeBestaende/13;					
+			
+
+			// Umschlagshäufigkeit:
+			abgaenge=0;
+			for( let i=0; i<6;i++ ){
+				if(zugang_array[i]!=2){
+					abgaenge+=menge_array[i];
+				}			
+			}
+			umschlagshaeufigkeit=abgaenge/dLB;
+			
+// Anzeige:
+
+			// Lagerdauer:
+			dLD=360/umschlagshaeufigkeit;
+			
+			// Zinsen:
+			ep				=	Math.floor(Math.random() * (90 - 60 + 1)) + 60;
+			zzgl 			= 	Math.floor(Math.random() * (2 - 1 + 1)) + 1;			
+			zinssatz		=	Math.floor(Math.random() * (8 - 3 + 1)) + 3;
+			lagerzinssatz 	= 	(zinssatz*dLD)/360;
+			zinsen 			= 	((zinssatz*dLD)/360)*dLB*ep/100;
+			if(zzgl==1){
+				zzgl="zzgl. 19% USt";
+			}else{
+				zzgl="einschl. 19% USt";
+				zinsen=zinsen/119*100;
+			}
+			
+			
+			document.getElementById("id_ep").innerHTML = ep.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',})+"/Stk "+zzgl;
+			document.getElementById("id_zinssatz").innerHTML = zinssatz.toLocaleString()+"% p.a.";
+			
+			
+			
+
+			// Datum:	
+			datum = new Date(null);
+			let tag = "";
+			let monat = "";
+			datum.setDate(datum.getDate() + datediff_array[0]);	
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			document.getElementById("tag1").innerHTML = tag+"."+monat+".";
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			datum.setDate(datum.getDate() + datediff_array[1]);
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;			
+			document.getElementById("tag2").innerHTML = tag+"."+monat+".";
+			datum.setDate(datum.getDate() + datediff_array[2]);
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			document.getElementById("tag3").innerHTML = tag+"."+monat+".";
+			datum.setDate(datum.getDate() + datediff_array[3]);	
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			document.getElementById("tag4").innerHTML = tag+"."+monat+".";
+			datum.setDate(datum.getDate() + datediff_array[4]);	
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			document.getElementById("tag5").innerHTML = tag+"."+monat+".";
+			datum.setDate(datum.getDate() + datediff_array[5]);	
+				tag = datum.getDate();
+				if( (String(tag)).length == 1 )
+				tag="0"+tag;
+				monat = datum.getMonth()+1;
+				if( (String(monat)).length == 1 )
+				monat = "0"+monat;
+			document.getElementById("tag6").innerHTML = tag+"."+monat+".";
+			
+			
+			// Anfangsbestand:
+			document.getElementById("ab").innerHTML = anfbest.toLocaleString();
+			
+			// Menge:	
+			document.getElementById("zu1").innerHTML = "-";
+			document.getElementById("ab1").innerHTML = "-";
+			document.getElementById("zu2").innerHTML = "-";
+			document.getElementById("ab2").innerHTML = "-";
+			document.getElementById("zu3").innerHTML = "-";
+			document.getElementById("ab3").innerHTML = "-";
+			document.getElementById("zu4").innerHTML = "-";
+			document.getElementById("ab4").innerHTML = "-";
+			document.getElementById("zu5").innerHTML = "-";
+			document.getElementById("ab5").innerHTML = "-";
+			document.getElementById("zu6").innerHTML = "-";
+			document.getElementById("ab6").innerHTML = "-";
+			
+			if(zugang_array[0]%2==0){
+				document.getElementById("zu1").innerHTML = menge_array[0].toLocaleString();
+			}else{
+				document.getElementById("ab1").innerHTML = menge_array[0].toLocaleString();
+			}
+			
+			if(zugang_array[1]%2==0){
+				document.getElementById("zu2").innerHTML = menge_array[1].toLocaleString();
+			}else{
+				document.getElementById("ab2").innerHTML = menge_array[1].toLocaleString();
+			}
+			
+			if(zugang_array[2]%2==0){
+				document.getElementById("zu3").innerHTML = menge_array[2].toLocaleString();
+			}else{
+				document.getElementById("ab3").innerHTML = menge_array[2].toLocaleString();
+			}
+		
+			if(zugang_array[3]%2==0){
+				document.getElementById("zu4").innerHTML = menge_array[3].toLocaleString();
+			}else{
+				document.getElementById("ab4").innerHTML = menge_array[3].toLocaleString();
+			}
+			
+			if(zugang_array[4]%2==0){
+				document.getElementById("zu5").innerHTML = menge_array[4].toLocaleString();
+			}else{
+				document.getElementById("ab5").innerHTML = menge_array[4].toLocaleString();
+			}
+			
+			if(zugang_array[5]%2==0){
+				document.getElementById("zu6").innerHTML = menge_array[5].toLocaleString();
+			}else{
+				document.getElementById("ab6").innerHTML = menge_array[5].toLocaleString();
+			}
+			
+			// Bestände löschen:
+			for(let i=0; i<10;i++){
+				document.getElementById(tf_bestaende[i]).innerHTML = "";
+			}
+			
+			// Textfelder löschen:
+			for(let i=0; i<8;i++){
+				document.getElementById(tf_eingaben[i]).value = "";
+			}
+
+			document.getElementById("tf_dLB").innerHTML = "";
+			document.getElementById("umschl").innerHTML = "";
+			document.getElementById("tf_LD").innerHTML = "";
+			
+
+		}		
+
+		function loesen() {
+		
+			// Bestände anzeigen:
+			for(let i=0; i<6;i++){
+				document.getElementById(tf_bestaende[i]).innerHTML = eb_array[i].toLocaleString();
+			}
+			
+			// Durchschnittlicher Lagerbestand:
+			document.getElementById("tf_dLB").innerHTML = summeBestaende.toLocaleString()+" Stk. : 13 = "+dLB.toLocaleString()+" Stk.";
+		
+			// Umschlagshäufigkeit:
+			document.getElementById("umschl").innerHTML = abgaenge.toLocaleString()+" Stk. : "+dLB.toLocaleString()+" Stk. = "+umschlagshaeufigkeit.toLocaleString();
+			
+			// Lagerdauer:
+			document.getElementById("tf_LD").innerHTML = "360 Tage : "+umschlagshaeufigkeit.toLocaleString()+" = "+dLD.toLocaleString()+" Tage";
+			
+			// Zinsen:
+			document.getElementById("id_zinsen").innerHTML = zinsen.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			document.getElementById("id_lagerzinssatz").innerHTML = lagerzinssatz.toLocaleString()+"%";
+		
+		}		
+	/*	
+		function neueAufgabe() {
+			window.location.reload();
+		}
+	*/	
+	</script>
+  </body>
+</html>

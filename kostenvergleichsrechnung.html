@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kritische Ausbringungsmenge</title>
+	<link rel="stylesheet" href="formatierung.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .button-container button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body onload="neueAufgabe()" style="text-align:center;">
+<header>
+	Kostenvergleichsrechnung
+</header>
+<main>
+    <div class="container">
+        <div id="satz">
+		</div>
+		<br>
+		<table>
+			<tr>
+				<td style="text-align:right;">kritische Ausbringungsmenge:</td>
+				<td><input type="text" id="zahl"></td>
+				<td><b id="loesung1"></b></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;">ab/bis wie viel St&uuml;k ist Maschine A g&uuml;nstiger:</td>
+				<td><input type="text" id="zah2"></td>
+				<td><b id="loesung2"></b></td>
+			</tr>		
+		</table>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html"><button>Startseite</button></a>
+</footer>
+<script>
+		let minX = 1000;
+        let maxX = 5000;
+        let minFixkosten = 30000.00;
+        let maxFixkosten = 90000.00;
+        let minVariableKosten = 20.00;
+        let maxVariableKosten = 40.00;
+		let x, AF, BF, AV, BV;
+        
+        function formatiereEuroBetrag(betrag) {
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(betrag);
+        }
+        
+        function neueAufgabe() {
+	// Fixkosten:
+	AF = Math.ceil((Math.random() * (maxFixkosten - minFixkosten) + minFixkosten) / 100) * 100;
+	var difAFBF = Math.ceil((Math.random() * (15 - 5) + 5))*100;
+	if((difAFBF/100)%2==0){
+		BF=AF+difAFBF;
+	}else{
+		BF=AF-difAFBF;
+	}
+	// variable Kosten:
+	AV = Math.ceil((Math.random() * (maxVariableKosten - minVariableKosten) + minVariableKosten) * 10) / 10;
+	var difBVAV = Math.ceil((Math.random() * (15 - 5) + 5));
+	if(AF>BF){
+		BV=AV+difBVAV;
+	}else{
+		BV=AV-difBVAV;
+	}
+	// kritische Ausbringungsmenge:
+	x = -1*(AF-BF)/(AV-BV);
+
+            var formattedAF = formatiereEuroBetrag(AF);
+            var formattedBF = formatiereEuroBetrag(BF);
+            var formattedAV = formatiereEuroBetrag(AV);
+            var formattedBV = formatiereEuroBetrag(BV);
+            
+            var sentence = "Berechnen Sie die kritische Ausbringungsmenge und bestimmen Sie, ab bzw. bis zu welcher Produktionsmenge Maschine A günstiger ist.<br><br> Maschine A hat Fixkosten in Höhe von <b>" + formattedAF + "/Jahr</b> und variable Kosten in Höhe von <b>" + formattedAV + "/Stück</b>.<br>Maschine B hat Fixkosten in Höhe von <b style='color: pink;'>" + formattedBF + "/Jahr</b> und variable Kosten in Höhe von <b style='color: pink;'>" + formattedBV + "/Stück</b>.";
+            
+            document.getElementById("satz").innerHTML = sentence;
+            
+            // Textfeld leeren
+            document.getElementById("zahl").value = "";
+			document.getElementById("zah2").value = "";
+            
+            // Lösungsbereich leeren
+            document.getElementById("loesung1").innerHTML = "";
+			document.getElementById("loesung2").innerHTML = "";
+        }
+               
+        function loesen() {   
+			var erg;
+			if(AF < BF){
+				erg=Math.floor(x);
+				document.getElementById("loesung1").innerHTML = x.toFixed(2);
+				document.getElementById("loesung2").innerHTML = "bis "+erg;
+			}else{
+				erg=Math.ceil(x);
+				document.getElementById("loesung1").innerHTML = x.toFixed(2);
+				document.getElementById("loesung2").innerHTML = "ab "+erg;
+			}
+        }
+    </script>
+</body>
+</html>

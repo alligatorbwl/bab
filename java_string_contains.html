@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowak</title>
+  <link rel="stylesheet" href="formatierung.css">
+  <link rel="stylesheet" href="nowak.000.pe/formatierung_002.css">
+  <style>
+
+    .code   {grid-area: 1/2;
+            }
+    .video  {grid-area: 1/1; 
+            }
+    .gridlayout { display: grid;
+                  grid-template-colums: 1fr 1fr;
+                  grid-gap: 5em;
+                  align-items: center;
+                }
+    .video-container  { position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%
+                        background: #000000;
+                      }
+
+    .video-container iframe { position: absolute;
+                              top: 0;
+                              left: 0;
+                              width: 100%;
+                              height: 100%;
+                            }
+
+  </style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+      String mit contains-Methode
+  </header>
+  <main class="gridlayout">
+  <div class="code">
+    <p>
+      <b id="fall"></b>Was gibt der Code aus?
+    </p>
+    <p>
+        &emsp; String s = "<b id="s"></b>";           <br>
+        &emsp; if( s.contains( "<b id="z1"></b>" )
+                <b id="oper"> </b> s.contains( "<b id="z2"></b>" )
+              ) {                <br>&emsp;
+        &emsp;    System.out.print( <b id="ifWert"> </b> );   <br>
+        &emsp; } else {                      <br>&emsp;
+        &emsp;    System.out.print( <b id="elseWert"> </b> ); <br>
+        &emsp; }                                 <br>
+        &emsp; 
+    </p>
+    <p>
+      Ausgabe: 
+
+      <input type="text" size="1" id="tf_ausgabe" style="text-align: center;">
+
+      &ensp;
+      <b id="ausgabe"></b>
+    </p>
+  </div>
+  <div class="video">
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/C9GgQRs80MM" title="int mit if in Java" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+  <br>
+  <br> 
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  </main>
+  <footer>
+    <button onclick="loesen()">L&ouml;sung</button>
+    <!-- anderer Aufgabentyp -->
+    <button onclick="neueAufgabe()">weiter</button>
+<!--
+
+
+    <button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+-->
+    <a href="./index.html" class="link-button">Startseite</a>
+  </footer>
+
+  <script>
+
+let fall=0;
+let s  = "INITIAL";
+let z1 = "I";
+let z2 = "L";
+let oper = "##";
+var tiere = ["anfang"];
+var falseBuchstaben = ["x","y","z","q","j","k","p","v"];
+let bis;
+let index;
+let indexOper;
+let charNr;
+var zustand;
+let zustandNr;
+let erg;
+let sameAufgabe=false;
+let durchgang=1;
+let ifWert=1;
+let elseWert=2;
+let zufall_if_else_Wert=0;
+
+function runden(number, nachkommastellen) {
+    // Überprüfe, ob nachkommastellen ein gültiger Wert ist
+    nachkommastellen = typeof nachkommastellen !== 'undefined' ? nachkommastellen : 2;
+
+    // Runde die Zahl auf die angegebene Anzahl von Nachkommastellen
+    const gerundeterWert = Math.round(number * Math.pow(10, nachkommastellen)) / Math.pow(10, nachkommastellen);
+
+  return gerundeterWert;
+}
+
+function zufallszahl(von, bis) {
+    return Math.floor(Math.random() * (bis + 1 - von)) + von;
+}
+
+function gleicheAufgabe(){
+  fall--;
+  //zeichenIndex--;
+  sameAufgabe=true;
+  neueAufgabe();
+}
+
+function neueAufgabe() {
+  fall++;
+  if(fall>8){
+     fall=1;
+     durchgang++;
+  }
+  erg=0;
+  if(fall<=1){
+      tiere = ["Affe","Alligator","Aal","Lachs","Fisch","Chihuahua","Bär","Biber","Bussard","Dachs","Delfin","Löwe","Elefant","Eidechse","Elch","Fuchs","Flamingo","Faultier","Banane","Ananas"];
+      zustand=[1,2,3,4,5,6,7,8];
+  }
+
+
+// String - Neuer Code:
+
+    // String-Wert festlegen:
+    bis = tiere.length; 
+    bis = bis -1;
+    index = zufallszahl(0,bis);
+    s = tiere[index];
+    if(sameAufgabe==false){
+      tiere.splice(index,1);
+    }
+//   alert(tiere.length+"= Länge | s = "+s);
+
+  // contains-Zeichen festlegen:
+  z1="xx";
+  z2="xx";
+  z1 = s.charAt( zufallszahl(0,s.length-1) );
+  while(z1==z2||z2=="xx"){
+      z2 = s.charAt( zufallszahl(0,s.length-1) );
+  }
+//  alert(s+" = s | z1 = "+z1+" | z2 = "+z2);
+
+// Zustand festlegen
+
+if(sameAufgabe==false){
+  indexOper = zufallszahl(0,(zustand.length-1));
+  zustandNr = zustand[ indexOper ];
+  zustand.splice(indexOper,1);
+}
+
+switch(zustandNr) {
+  case 1:
+    // OR z1=true z2=true
+    oper = "||";
+    break;
+  case 2:
+    // OR z1=false z2=false 
+    oper = "||";
+    z1 = falseBuchstaben[ zufallszahl(0,7) ];
+    z2="xx";
+    while(z1==z2||z2=="xx"){
+      z2 = falseBuchstaben[ zufallszahl(0,7) ];
+    }
+    break;
+  case 3:
+    // OR z1=true z2=false
+    oper = "||";
+    z2 = falseBuchstaben[ zufallszahl(0,7) ];
+    break;
+  case 4:
+    // OR z1=false z2=true
+    oper = "||";
+    z1 = falseBuchstaben[ zufallszahl(0,7) ];
+    break;
+  case 5:
+    // AND z1=true z2=true
+    oper = "&&";
+    break;
+  case 6:
+    // AND z1=false z2=false
+    oper = "&&"; 
+    z1 = falseBuchstaben[ zufallszahl(0,7) ];
+    z2="xx";
+    while(z1==z2||z2=="xx"){
+      z2 = falseBuchstaben[ zufallszahl(0,7) ];
+    }
+    break;
+  case 7:
+    // AND z1=true z2=false
+    oper = "&&";
+    z2 = falseBuchstaben[ zufallszahl(0,7) ];
+    break;
+  case 8:
+    // AND z1=false z2=true
+    oper = "&&";
+    z1 = falseBuchstaben[ zufallszahl(0,7) ];
+    break;
+  default:
+    // code block
+}
+
+
+zufall_if_else_Wert = zufallszahl(1,2);
+
+if(zufall_if_else_Wert==2){
+  ifWert=7;
+  elseWert=9;
+}else{
+  ifWert=9;
+  elseWert=7;
+}
+
+
+// Ergebnis bei OR bestimmen:
+  if(oper=="||"){
+      // Ergebnis bestimmen:
+      if(s.includes(z1)||s.includes(z2)){
+        erg=ifWert;
+      }else{
+        erg=elseWert;
+      }
+  }
+  if(oper=="&&"){
+      // Ergebnis bestimmen:
+      if(s.includes(z1)&&s.includes(z2)){
+        erg=ifWert;
+      }else{
+        erg=elseWert;
+      }
+  }
+
+sameAufgabe=false;
+
+// Anzeigen:
+
+  document.getElementById("fall").innerHTML = "<p>Fall "+fall+" bei Durchgang "+durchgang+"</p>";
+  document.getElementById("s").innerHTML = s;
+  document.getElementById("z1").innerHTML = z1;
+  document.getElementById("z2").innerHTML = z2;
+  document.getElementById("oper").innerHTML = oper;
+  document.getElementById("ifWert").innerHTML = ifWert;
+  document.getElementById("elseWert").innerHTML = elseWert;
+  
+
+  // ALLE TEXTFELDER LÖSCHEN:
+  document.getElementById("tf_ausgabe").value = "";
+  // LÖSUNG LÖSCHEN:
+  document.getElementById("ausgabe").innerHTML = "";
+
+}
+
+function loesen(){
+
+  
+  // Anzeigen:
+  let textfeldinhaltString = document.getElementById("tf_ausgabe").value;
+// alert("textfeldinhaltString="+textfeldinhaltString+" UND erg="+erg);
+ // Überprüfen, ob das Textfeld leer ist oder keinen gültigen numerischen Wert enthält
+ /*
+  if (textfeldinhaltString.trim() === "" || isNaN(parseInt(textfeldinhaltString, 10))) {
+    document.getElementById("ausgabe").innerHTML = "<span class='fehler'>ungültige Eingabe</span>";
+    return;
+  }
+*/
+  let textfeldinhaltInt = parseInt(textfeldinhaltString, 10);
+
+  let ergAusgabe;
+  if( erg==textfeldinhaltString ){
+     ergAusgabe = erg;
+  }else{
+    ergAusgabe = "<span class='fehler'>"+erg+"</span>";
+  }
+
+  document.getElementById("ausgabe").innerHTML = ergAusgabe;
+}
+
+  </script>
+  </body>
+</html>

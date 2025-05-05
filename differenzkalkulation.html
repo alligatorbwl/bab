@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differenzkalkulation</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <!--  
+  <body onload="neueAufgabe()">
+-->  
+  <body>
+<header>
+	Differenzkalkulation
+</header>
+<main>
+	<p>
+		Berechnen Sie den Gewinnzuschlagsatz.
+	</p> 	
+	<table>
+		<tr>
+			<td>
+				Einstandspreis
+			</td>
+			<td>
+			</td>
+			<td style="text-align:right;">
+	<!--				
+	<input type="text" size="8" id="tf1">
+	-->
+	<b id="einstandspreis"></b>
+					
+			</td>
+			<td style="text-align:right;">
+				<b id="l1"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Handlungskosten
+			</td>
+			<td>
+				<b id="h"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf2">
+			</td>
+			<td style="text-align:right;">
+				<b id="l2"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Selbstkosten
+			</td>
+			<td>
+
+			</td>
+			<td>
+				<input type="text" size="8" id="tf3">
+			</td>
+			<td style="text-align:right;">
+				<b id="l3"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Gewinnzuschlag
+			</td>
+			<td>
+				<input type="text" size="8" id="tf4gewinnzuschlagsatz">
+				<b id="l4g"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td style="text-align:right;">
+				<b id="l4"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Barverkaufspreis
+			</td>
+			<td>
+
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td style="text-align:right;">
+				<b id="l5"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Kundenskonto
+			</td>
+			<td>
+				<b id="s"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf6">
+			</td>
+			<td style="text-align:right;">
+				<b id="l6"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Vertreterprovision
+			</td>
+			<td>
+				<b id="p"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf7">
+			</td>
+			<td style="text-align:right;">
+				<b id="l7"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Zielverkaufspreis
+			</td>
+			<td>
+
+			</td>
+			<td>
+				<input type="text" size="8" id="tf8">
+			</td>
+			<td style="text-align:right;">
+				<b id="l8"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Kundenrabatt
+			</td>
+			<td>
+				<b id="r"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf9">
+			</td>
+			<td style="text-align:right;">
+				<b id="l9"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Listenverkaufspreis
+			</td>
+			<td>
+
+			</td>
+			<td style="text-align:right;">
+			<!--
+				<input type="text" size="8" id="tf10">	
+			-->
+			<b id="listenverkaufspreis"></b>
+			</td>
+			<td style="text-align:right;">
+				<b id="l10"></b>
+			</td>
+		</tr>
+	</table>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+	
+//	   Math.floor(Math.random() * (max - min) ) + min;
+let h=(Math.floor(Math.random() * (30 - 10)) + 10);
+let g=(Math.floor(Math.random() * ( 6 -  1)) + 1)*5;
+let s=(Math.floor(Math.random() * ( 5 -  2)) + 2);
+let p=(Math.floor(Math.random() * ( 9 -  5)) + 5);
+let r=(Math.floor(Math.random() * ( 5 -  1)) + 1)*5;
+let einstandspreis=(Math.floor(Math.random() * ( 18 -  1)) + 1)*50;
+
+let H = Math.round(einstandspreis*h)/100;
+let SE = einstandspreis + H;
+let G = Math.round(SE*g)/100;
+let B = SE + G;
+let S = Math.round((B/(100-s-p)*s)*100)/100;
+let P = Math.round((B/(100-s-p)*p)*100)/100;
+let Z = B+S+P;
+let R = Math.round((Z/(100-r)*r)*100)/100;
+let L = Z+R;
+
+document.getElementById("einstandspreis").innerHTML = einstandspreis.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});		
+document.getElementById("h").innerHTML = h+"%";
+document.getElementById("s").innerHTML = s+"%";
+document.getElementById("p").innerHTML = p+"%";
+document.getElementById("r").innerHTML = r+"%";
+document.getElementById("listenverkaufspreis").innerHTML = L.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+		
+// LÖSUNGEN löschen:
+document.getElementById("l2").innerHTML = "";
+document.getElementById("l3").innerHTML = "";
+document.getElementById("l4g").innerHTML = "";
+document.getElementById("l4").innerHTML = "";
+document.getElementById("l5").innerHTML = "";
+document.getElementById("l6").innerHTML = "";
+document.getElementById("l7").innerHTML = "";
+document.getElementById("l8").innerHTML = "";
+document.getElementById("l9").innerHTML = "";
+
+// Lösungen: 
+function loesen() {
+	document.getElementById("l2").innerHTML = H.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l3").innerHTML = SE.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l4g").innerHTML = g+"%";
+	document.getElementById("l4").innerHTML = G.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l5").innerHTML = B.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l6").innerHTML = S.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l7").innerHTML = P.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l8").innerHTML = Z.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("l9").innerHTML = R.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+}		
+
+function neueAufgabe() {
+//	document.getElementById("tf1").value = "";
+	document.getElementById("tf2").value = "";
+	document.getElementById("tf3").value = "";
+	document.getElementById("tf4gewinnzuschlagsatz").value = "";
+	document.getElementById("tf4").value = "";
+	document.getElementById("tf5").value = "";	
+	document.getElementById("tf6").value = "";
+	document.getElementById("tf7").value = "";	
+	document.getElementById("tf8").value = "";	
+	document.getElementById("tf9").value = "";	
+//	document.getElementById("tf10").value = "";	
+	window.location.reload();
+}
+		
+	</script>
+  </body>
+</html>

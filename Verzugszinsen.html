@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verzugszinsen</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <!--
+  <body onload="neueAufgabe()">
+  -->
+  <body>
+  <header>
+	Verzugszinsen
+  </header>
+  <main>
+	<p>	
+		Kunde 
+		<b id="kunde"></b> bekam am 
+		<b id="rechnungsdatum"></b> eine Rechnung in H&ouml;he von  
+		<b id="rechnungsbetrag"></b> 
+		<b id="zzgl"></b> 19% USt. 
+		
+		Die Zahlungsbedingung lautet "
+		<b id="zahlungsbedingung"></b>". 
+		
+		Bis heute,  
+		<b id="jetzt"></b> hat der Kunde noch nicht bezahlt. 
+		
+		Wir haben dem Kunden 
+		<b id="mahnung"></b> zustellen lassen. 
+				
+		Der Kunde wurde auf die <b>30-Tage</b>-Frist	
+		<b id="hinweis30tage"></b>.	
+		
+		Der Basiszinssatz betr&auml;gt momentan
+		<b id="basiszinssatz"></b>%. 	
+	</p>
+	
+	<table style="color:#FF8C00;">
+		<tr>
+			<td>
+				Pr&uuml;fen, ob Zahlungsverzug nach &sect; 286 BGB vorliegt:
+			</td>
+			<td>
+ 
+			</td>
+			<td>
+ 
+			</td>
+		</tr>
+		<tr>
+			<td>
+				1. Wann ist die Zahlung f&auml;llig?
+			</td>
+			<td>
+				<input type="text" size="8" id="tf1">
+			</td>
+			<td>
+				<b id="tfFaellig"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				2. Ist eine Mahnung n&ouml;tig bzw. ab wann liegt sie vor?
+			</td>
+			<td>
+				<input type="text" size="8" id="tf2">
+			</td>
+			<td>
+				<b id="tfNoetig"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				3. Ist der Kunde am Verzug selber schuld?
+			</td>
+			<td>
+				<input type="text" size="8" id="tf3">
+			</td>
+			<td>
+				<b id="tfSchuld"></b>
+			</td>
+		</tr>
+	</table>
+	
+	<br>
+	
+	<table style="color:#DA70D6;">
+		<tr>
+			<td>
+				Verzugszinsen nach &sect; 288 BGB berechnen:
+			</td>
+			<td>
+ 
+			</td>
+			<td>
+ 
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Wie viele Verzugstage liegen bis heute vor?
+			</td>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td>
+				<b id="tfTage"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Wie viele Verzugszinsen k&ouml;nnen wir vom Kunden verlangen?
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td>
+				<b id="tfZinsen"></b>
+			</td>
+		</tr>		
+	</table>
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+  </footer>
+  <script>
+		let mahntag=0;
+		let verbraucher=Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+		
+		switch(verbraucher) {
+			case 1:
+			document.getElementById("kunde").innerHTML = "Walter";
+			break;
+			case 2:
+			document.getElementById("kunde").innerHTML = "Walter AG";
+			break;
+			case 3:
+			document.getElementById("kunde").innerHTML = "Walter GmbH";
+			break;
+			case 4:
+			document.getElementById("kunde").innerHTML = "Walter OHG";
+			break;
+		} 
+		
+		let basiszinssatz = (Math.floor(Math.random() * (300 - 100 + 1)) + 0)/100;
+		
+		let rechnungsbetrag = Math.floor(Math.random() * (5000 - 500 + 1)) + 500;
+		let ford=0;	
+	
+		let zzgl = "+++";
+		let zzgl_einschl = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		if(zzgl_einschl>1){
+			zzgl="zzgl."
+			ford=rechnungsbetrag*1.19;
+			ford=ford*100;
+			ford=Math.round(ford);
+			ford=ford/100;
+			}else{
+			zzgl="einschl."
+			ford=rechnungsbetrag;
+		}
+		
+		let jetzt = new Date();
+		
+		let dif_rechdat = Math.floor(Math.random() * (100 - 70 + 1)) + 70;
+		let rechnungsdatum = new Date(jetzt);
+		rechnungsdatum.setDate(rechnungsdatum.getDate()-dif_rechdat);
+
+		let zahlungsbedingung="";
+		let skontofrist = Math.floor(Math.random() * (14 - 7 + 1)) + 7;
+		let skontosatz = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+		let ziel = Math.floor(Math.random() * (40 - 20 + 1)) + 20;
+		
+		let faellig ="";
+		let dif_faell=dif_rechdat-ziel;
+		let sofort = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		///
+	///	sofort=1;
+		
+		if(sofort==1){
+			faellig="sofort";
+			zahlungsbedingung="zahlbar sofort";
+		}
+		if(sofort>1){
+			faellig = new Date(jetzt);
+			faellig.setDate(faellig.getDate()-dif_faell);
+			zahlungsbedingung = skontofrist+" Tage "+skontosatz+"% Skonto oder "+ziel+" Tage Ziel";
+		}
+				
+		let mahnung="";
+		let gemahnt = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		///
+	//	gemahnt=2;
+		
+		if(gemahnt==1){
+			mahnung="keine Mahnung";
+		}
+		
+		if(gemahnt==2){
+			let dif_mahntag = Math.floor(Math.random() * (60 - 40 + 1)) + 30;
+			mahntag= new Date(jetzt);
+			mahntag.setDate(mahntag.getDate()-dif_mahntag);
+			mahnung="am "+mahntag.getDate()+"."+(mahntag.getMonth()+1)+"."+mahntag.getFullYear()+" eine Mahnung";
+		}		
+		
+		let verzugstage;
+		// 1. Fall: kalendarisch bestimmbare Fälligkeit:
+		if(sofort>1){
+			verzugstage = Math.abs(jetzt - faellig);
+			verzugstage = Math.ceil(verzugstage / (1000 * 60 * 60 * 24)); 	
+		}
+		// 2.Fall: sofort fällig + keine Mahnung:
+		if(sofort==1 && gemahnt==1){
+			verzugstage = 0; 	
+		}
+		// 3.Fall: sofort fällig + Mahnung vorhanden:
+		if(sofort==1 && gemahnt==2){
+			verzugstage = Math.abs(jetzt - mahntag);
+			verzugstage = Math.ceil(verzugstage / (1000 * 60 * 60 * 24)); 
+			verzugstage	= verzugstage + 1; // weil der Tag des Mahnungszugangs zu den Verzugstagen zählt!		
+		}
+		// 4.Fall: sofort fällig + 30-Tage-Frist:
+		let hinweis30tage = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		if(hinweis30tage==1 && verbraucher==1 && sofort==1){
+			document.getElementById("hinweis30tage").innerHTML = "hingewiesen";
+		}else{
+			document.getElementById("hinweis30tage").innerHTML = "nicht hingewiesen";
+			hinweis30tage=2;
+		}	
+		
+		let diff_rechdat_abz_30 = dif_rechdat-30;
+		let dreissigtagefrist = new Date(jetzt);
+		dreissigtagefrist.setDate(dreissigtagefrist.getDate()-diff_rechdat_abz_30);
+		let verzugstage30 = Math.abs(jetzt - dreissigtagefrist);
+		verzugstage30 = Math.ceil(verzugstage30 / (1000 * 60 * 60 * 24)); 
+		if(verbraucher>1 && sofort==1){
+			if(verzugstage30>verzugstage){
+				verzugstage=verzugstage30;
+			}
+		}
+		if(verbraucher==1 && sofort==1 && hinweis30tage==1){
+			if(verzugstage30>verzugstage){
+				verzugstage=verzugstage30;
+			}
+		}
+		if(verbraucher!=1 && sofort==1){
+			if(verzugstage30>verzugstage){
+				verzugstage=verzugstage30;
+			}
+		}
+
+		// Verzugszinsen:
+		let zinssatz = 0;
+		if(verbraucher==1){
+			zinssatz=basiszinssatz+5;
+		}else{
+			zinssatz=basiszinssatz+9;
+		}
+		let verzugszinsen = ford * zinssatz/100 * verzugstage/360;
+		
+		// Anzeige:
+			document.getElementById("rechnungsbetrag").innerHTML = rechnungsbetrag.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+
+			document.getElementById("zzgl").innerHTML = zzgl;
+			document.getElementById("rechnungsdatum").innerHTML = rechnungsdatum.getDate()+"."+(rechnungsdatum.getMonth()+1)+"."+rechnungsdatum.getFullYear();
+					
+			document.getElementById("zahlungsbedingung").innerHTML = zahlungsbedingung.toLocaleString();
+
+			document.getElementById("jetzt").innerHTML = jetzt.getDate()+"."+(jetzt.getMonth()+1)+"."+jetzt.getFullYear();;
+
+			document.getElementById("mahnung").innerHTML = mahnung.toLocaleString();
+			document.getElementById("basiszinssatz").innerHTML = basiszinssatz.toLocaleString();
+						
+			document.getElementById("tf1").value = "";
+			document.getElementById("tf2").value = "";
+			document.getElementById("tf3").value = "";
+			document.getElementById("tf4").value = "";
+			document.getElementById("tf5").value = "";	
+		
+
+		function loesen() {
+	//	alert("hinweis30tage= "+hinweis30tage);
+		// Fälligkeit:
+			if(sofort>1){
+				document.getElementById("tfFaellig").innerHTML = faellig.getDate()+"."+(faellig.getMonth()+1)+"."+faellig.getFullYear();	
+				document.getElementById("tfNoetig").innerHTML = "Mahnung nicht notwendig, da F&auml;lligkeit kalendarisch bestimmbar.";
+				// Kalendarisch bestimmbare Fälligkeit --> Verzugszinsen:
+				document.getElementById("tfSchuld").innerHTML = "Ja, da Verschulden bei Geldschulden immer vorliegt.";
+			}
+			if(sofort==1){
+				document.getElementById("tfFaellig").innerHTML = "sofort";
+				if(gemahnt==1){
+					if(verbraucher==1 && hinweis30tage!=1){
+					document.getElementById("tfNoetig").innerHTML = "Mahnung fehlt.";
+					// keine Verzugszinsen:
+					document.getElementById("tfSchuld").innerHTML = "Es liegt kein Verzug vor.";
+					}
+					if(verbraucher!=1){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung nicht n&ouml;tig, da f&uuml;r Unternehmen die 30-Tage-Frist gilt. Sie endet am "+dreissigtagefrist.getDate()+"."+(dreissigtagefrist.getMonth()+1)+"."+dreissigtagefrist.getFullYear()+".";
+						document.getElementById("tfSchuld").innerHTML = "Ja, da Verschulden bei Geldschulden immer vorliegt.";
+					}
+					if(verbraucher==1 && hinweis30tage==1){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung nicht n&ouml;tig, da der Verbraucher auf die 30-Tage-Frist hingewiesen wurde. Sie endet am "+dreissigtagefrist.getDate()+"."+(dreissigtagefrist.getMonth()+1)+"."+dreissigtagefrist.getFullYear()+" .";
+						document.getElementById("tfSchuld").innerHTML = "Ja, da Verschulden bei Geldschulden immer vorliegt.";
+					}					
+				}else{
+					// sofort + Mahnung vorhanden
+					if(mahntag.getTime()<=dreissigtagefrist.getTime()){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung vorhanden ab "+mahntag.getDate()+"."+(mahntag.getMonth()+1)+"."+mahntag.getFullYear()+".";
+					}
+					if(mahntag.getTime()>dreissigtagefrist.getTime()&&verbraucher==1 && hinweis30tage==1){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung nicht n&ouml;tig, da der Verbraucher auf die 30-Tage-Frist hingewiesen wurde. Sie endet am "+dreissigtagefrist.getDate()+"."+(dreissigtagefrist.getMonth()+1)+"."+dreissigtagefrist.getFullYear()+".";
+					}
+					if(mahntag.getTime()>dreissigtagefrist.getTime()&&verbraucher==1 && hinweis30tage!=1){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung vorhanden ab "+mahntag.getDate()+"."+(mahntag.getMonth()+1)+"."+mahntag.getFullYear()+".";
+					}
+					if(mahntag.getTime()>dreissigtagefrist.getTime()&&verbraucher!=1){
+						document.getElementById("tfNoetig").innerHTML = "Mahnung nicht n&ouml;tig, da f&uuml;r Unternehmen die 30-Tage-Frist gilt. Sie endet am "+dreissigtagefrist.getDate()+"."+(dreissigtagefrist.getMonth()+1)+"."+dreissigtagefrist.getFullYear()+".";
+					}
+					document.getElementById("tfSchuld").innerHTML = "Ja, da Verschulden bei Geldschulden immer vorliegt.";
+				}	
+			}	
+			// Verzugstage:
+			document.getElementById("tfTage").innerHTML = verzugstage+" Tage";
+			// Zinsen:
+			document.getElementById("tfZinsen").innerHTML = verzugszinsen.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		}		
+		
+		function neueAufgabe() {
+			window.location.reload();
+		}
+		
+	</script>
+  </body>
+</html>

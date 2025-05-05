@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differenzkalkulation</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <!--  
+  <body onload="neueAufgabe()">
+-->  
+  <body>
+  <header>
+	Anschaffungskosten aus dem Buchwert berechnen
+  </header>
+  <main>
+	<p>
+		Berechnen Sie die Anschaffungskosten der 
+		teilweise abgeschriebenen Maschine.
+		<br><br>
+		Gehen Sie davon aus, dass heute der 
+		<b id="buchwert_datum"></b> ist. 
+	</p>
+	
+ 	
+	<table>
+		<tr>
+			<td>
+				AfA-Startdatum:
+			</td>
+			<td style="text-align:center;">
+				<b id="afa_datum"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Nutzungsdauer in Jahren:
+			</td>
+			<td style="text-align:center;">
+				<b id="nd"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Buchwert:
+			</td>
+			<td style="text-align:center;">
+				<b id="buchwert"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Anschaffungskosten:
+			</td>
+			<td style="text-align:center;">
+				<input type="text" size="8" id="tf_ak">
+			</td>
+			<td style="text-align:right;">
+				<b id="ak"></b>
+			</td>
+		</tr>
+	</table>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+	
+//	   Math.floor(Math.random() * (max - min) ) + min;
+let afa_monat=(Math.floor(Math.random() * (12 - 1)) + 1);
+let afa_jahr=(Math.floor(Math.random() * ( 2017 -  2014)) + 2014);
+let nd=(Math.floor(Math.random() * ( 15 -  7)) + 7);
+let abgeschrieben_jahre=(Math.floor(Math.random() * ( 5 -  1)) + 1);
+let buchwert_tag=(Math.floor(Math.random() * ( 28 -  1)) + 1);
+let buchwert_monat=(Math.floor(Math.random() * ( 12 -  1)) + 1);
+let buchwert_jahr=afa_jahr+abgeschrieben_jahre;
+let ak = ((Math.floor(Math.random() * (800000 - 400000)) + 400000))/100;
+
+let linMonAbschBetrag = ak/(nd*12);
+let abschMonate = 13-afa_monat+12*(buchwert_jahr-afa_jahr-1);
+let buchwert = ak-linMonAbschBetrag*abschMonate;
+
+
+// Anzeigen:
+document.getElementById("afa_datum").innerHTML = "1."+afa_monat+"."+afa_jahr;
+document.getElementById("nd").innerHTML = nd;
+document.getElementById("buchwert_datum").innerHTML = buchwert_tag+"."+buchwert_monat+"."+buchwert_jahr;
+document.getElementById("buchwert").innerHTML = buchwert.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+		
+// LÖSUNGEN löschen:
+document.getElementById("ak").innerHTML = "";
+
+
+// Lösungen: 
+function loesen() {
+	document.getElementById("ak").innerHTML = ak.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+}		
+
+function neueAufgabe() {
+	document.getElementById("tf_ak").value = "";
+	window.location.reload();
+}
+		
+	</script>
+  </body>
+</html>

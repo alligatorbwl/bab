@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if</title>
+  <link rel="stylesheet" href="formatierung.css">
+  <link rel="stylesheet" href="nowak.000.pe/formatierung_002.css">
+  <style>
+
+    .code   {grid-area: 1/2;
+            }
+    .video  {grid-area: 1/1;
+            }
+    .gridlayout { display: grid;
+                  grid-template-colums: 1fr 1fr;
+                  grid-gap: 5em;
+                  align-items: center;
+                }
+    .video-container  { position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%
+                        background: #000000;
+                      }
+
+    .video-container iframe { position: absolute;
+                              top: 0;
+                              left: 0;
+                              width: 100%;
+                              height: 100%;
+                            }
+
+  </style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+      int und if in Java
+  </header>
+  <main class="gridlayout">
+  <div class="code">
+    <p>
+      <b id="fall"></b>Was gibt der Code aus?
+    </p>
+    <p>
+        &emsp; int a = <b id="a"></b>;           <br>
+        &emsp; if( a <b id="zeichen"></b> 
+               <b id="b"></b> ) {                <br>&emsp;
+        &emsp;    <span id="if_zweig"></span>   <br>
+        &emsp; } else {                          <br>&emsp;
+        &emsp;    <span id="else_zweig"></span> <br>
+        &emsp; }                                 <br>
+        &emsp; System.out.println( a );
+    </p>
+    <p>
+      Ausgabe: 
+
+      <input type="text" size="1" id="tf_ausgabe" style="text-align: center;">
+
+      &ensp;
+      <b id="ausgabe"></b>
+    </p>
+  </div>
+  <div class="video">
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/73vH7-lU60k" title="int mit if in Java" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  </main>
+  <footer>
+    <button onclick="loesen()">L&ouml;sung</button>
+    <button onclick="neueAufgabe()">anderer Aufgabentyp</button>
+    <button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+    <a href="./index.html" class="link-button">Startseite</a>
+  </footer>
+
+  <script>
+let if_zweig   = "";
+let else_zweig = "";
+let fall = 0;
+let fallVarValue = fall;
+let a    = 0;
+let b    = 0;
+let erg  = 0;
+let zeichen = "<";
+let zeichenIndex = 0;
+// Vergleichszeichen:
+  let zeichenMatrix = [
+      [1,2,3,4,5,0],
+      [2,3,4,5,0,1],
+      [3,4,5,0,1,2],
+      [4,5,0,1,2,3],
+      [5,0,1,2,3,4],
+      [1,3,2,5,4,0],
+      [3,2,5,4,0,1],
+      [2,5,4,0,1,3],
+      [5,4,0,1,3,2],
+      [4,0,1,3,2,5],
+      [1,4,5,2,3,0],
+      [4,5,2,3,0,1],
+      [5,2,3,0,1,4],
+      [2,3,0,1,4,5],
+      [3,0,1,4,5,2],
+      [0,1,4,5,2,3]
+  ];
+  let zeichenArray = [];
+
+function runden(number, nachkommastellen) {
+    // Überprüfe, ob nachkommastellen ein gültiger Wert ist
+    nachkommastellen = typeof nachkommastellen !== 'undefined' ? nachkommastellen : 2;
+
+    // Runde die Zahl auf die angegebene Anzahl von Nachkommastellen
+    const gerundeterWert = Math.round(number * Math.pow(10, nachkommastellen)) / Math.pow(10, nachkommastellen);
+
+  return gerundeterWert;
+}
+
+function zufallszahl(von, bis) {
+    return Math.floor(Math.random() * (bis + 1 - von)) + von;
+}
+
+function gleicheAufgabe(){
+  fall--;
+  zeichenIndex--;
+  neueAufgabe();
+}
+
+function neueAufgabe() {
+  fall++;
+  fallVarValue++;
+  if(fall>15){
+//   alert("Alle Aufgabentypen wurden angezeigt. Das Programm beginnt von vorne.");
+    fall=1;
+  }
+
+//*****************************************************
+
+// TEIL 1: Variablen-Werte festlegen:
+  a = zufallszahl(3,7);
+  b = zufallszahl(3,7);
+  if(a==b){
+    a++;
+  }
+  if(a%2==0){
+    a++;
+  }
+
+// 1) a<b 2) a>b 3) a==b
+//alert("FALL = "+fall);
+  
+  if(fallVarValue%2!=0 && fallVarValue%3!=0){
+//    alert("Fall A");
+    if(a>b){
+      let i = a;
+      a=b;
+      b=i;
+    }
+  }
+  if(fallVarValue%2==0){
+//    alert("Fall B");
+    if(a<b){
+      let i = a;
+      a=b;
+      b=i;
+    }
+  }
+  if(fallVarValue%3==0){
+//    alert("Fall C");
+    if(a!=b){
+      b=a;
+    }
+  }
+
+//*****************************************************
+
+// TEIL 2: Vergleichszeichen festlegen:
+  // neue Reihenfolge zufällig festlegen:
+  if((fall+5)%6==0){
+    let anzArrayInMatrix = zeichenMatrix.length;
+//  alert("anzArrayInMatrix = "+anzArrayInMatrix);
+    let i = zufallszahl(0,(anzArrayInMatrix-1));
+    zeichenArray = zeichenMatrix[ i ];
+//    alert("zeichenArray = "+i);
+    zeichenIndex = -1;
+  }
+
+// ###########  Start für das VIDEO:
+// Zeichenreihenfolge bestimmen:
+//  zeichenArray = zeichenMatrix[ 0 ];
+// ###########  Ende für das VIDEO:
+
+
+  // Zeichen bestimmen:
+  if(zeichenIndex<0 || zeichenIndex >= (zeichenArray.length-1)){
+    zeichenIndex=-1;
+  }
+  zeichenIndex++;
+  let j = zeichenArray[ zeichenIndex ];
+//  alert("Array="+zeichenArray+" & Index="+zeichenIndex+" & Zeichen = "+j);
+  switch ( j ) {
+    case 1:
+        zeichen = "<";
+        // Berechnung:
+        erg = a;
+        if(a<b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{
+              erg++;
+            }            
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          }          
+        }
+        break;
+    case 2:
+        zeichen = ">";
+        // Berechnung:
+        erg = a;
+        if(a>b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{ 
+              erg++;
+            }
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          } 
+        }
+        break;
+    case 3:
+        zeichen = ">=";
+        // Berechnung:
+        erg = a;
+        if(a>=b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{
+              erg++;
+            }
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          } 
+        }
+        break;
+    case 4:
+        zeichen = "<=";
+        // Berechnung:
+        erg = a;
+        if(a<=b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{
+              erg++;
+            }
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          } 
+        }
+        break;
+    case 5:
+        zeichen = "==";
+        // Berechnung:
+        erg = a;
+        if(a==b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{
+              erg++;
+            }
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          } 
+        }
+        break;
+    case 0:
+        zeichen = "!=";
+        // Berechnung:
+        erg = a;
+        if(a!=b){
+          if(fall==9){
+            erg += 2;
+          }else{
+            if(fall==10){
+              erg = 2*erg;
+            }else{
+              erg++;
+            }
+          }
+        }else{
+          if(fall<=8){
+            erg--;
+          }
+          if(fall==9){
+            erg -= 3;
+          }
+          if(fall>=10){
+            erg=erg/2;
+          } 
+        }
+        break;       
+    default:
+        erg = 999;
+        alert("Problem beim Switch mit zeicheIndex="+zeichenIndex);
+        alert("Array="+zeichenArray+" & Index="+zeichenIndex+" & Zeichen = "+j);
+  }
+
+//*****************************************************
+
+// TEIL 3: Anzeigen:
+  if(fall<=6){
+    if_zweig   = "a = a + 1;";
+    else_zweig = "a = a - 1;";
+  }
+  if(fall==7){
+    if_zweig   = "a++;";
+    else_zweig = "a--;";
+  }
+  if(fall==8){
+    if_zweig   = "a += 1;";
+    else_zweig = "a -= 1;";
+  }
+  if(fall==9){
+    if_zweig   = "a += 2;";
+    else_zweig = "a -= 3;";
+  }
+  if(fall==10){
+    if_zweig   = "a = 2*a;";
+    else_zweig = "a = a/2;";
+  }
+  if(fall>=11){
+    if_zweig   = "a++;";
+    else_zweig = "a = a/2;";
+  }
+
+  document.getElementById("if_zweig").innerHTML = if_zweig;
+  document.getElementById("else_zweig").innerHTML = else_zweig;
+  document.getElementById("fall").innerHTML = "Fall "+fall+": ";
+  document.getElementById("a").innerHTML = a;
+  document.getElementById("zeichen").innerHTML = zeichen;
+  document.getElementById("b").innerHTML = b;
+  // ALLE TEXTFELDER LÖSCHEN:
+  document.getElementById("tf_ausgabe").value = "";
+  // LÖSUNG LÖSCHEN:
+  document.getElementById("ausgabe").innerHTML = "";
+
+erg = Math.floor(erg);
+
+}
+
+function loesen(){
+
+  
+  // Anzeigen:
+  let textfeldinhaltString = document.getElementById("tf_ausgabe").value;
+// alert("textfeldinhaltString="+textfeldinhaltString+" UND erg="+erg);
+ // Überprüfen, ob das Textfeld leer ist oder keinen gültigen numerischen Wert enthält
+  if (textfeldinhaltString.trim() === "" || isNaN(parseInt(textfeldinhaltString, 10))) {
+    document.getElementById("ausgabe").innerHTML = "<span class='fehler'>ungültige Eingabe</span>";
+    return;
+  }
+
+  let textfeldinhaltInt = parseInt(textfeldinhaltString, 10);
+
+  let ergAusgabe;
+  if( erg==textfeldinhaltString ){
+     ergAusgabe = erg;
+  }else{
+    ergAusgabe = "<span class='fehler'>"+erg+"</span>";
+  }
+
+  document.getElementById("ausgabe").innerHTML = ergAusgabe;
+}
+
+  </script>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechnung &uuml;berweisen</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <!--  
+  <body onload="neueAufgabe()">
+-->  
+<body>
+<header>
+	Rechnungsbetrag &uuml;berweisen
+</header>
+<main>
+	<p>
+		Am <b id="datum_ueberweisung"></b> 
+		bezahlen wir eine Rechnung von 
+		der Rau GmbH per &Uuml;berweisung. 
+		<br>
+		Der Kaufvertrag wurde am <b id="datum_kaufvertrag"></b> 
+		abgeschlossen.
+	</p>
+	<p>
+		Die Rechnung enth&auml;lt folgende Daten:
+	</p>	
+	<table>
+		<tr>
+			<td>
+				Rechnungsdatum
+			</td>
+			<td style="text-align:left">
+				<b id="datum_rechnung"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Rechnungsbetrag
+			</td>
+			<td style="text-align:left">
+				<b id="rechnungsbetrag"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Zahlungsbedingung
+			</td>
+			<td style="text-align:left">
+				<b id="zahlungsbedingungen"></b>
+			</td>
+		</tr>
+	</table>
+	<p>
+		Berechnen Sie diese Angaben: <b id="musterloesung"></b>
+	</p>	
+	<table>
+		<tr>
+			<td>
+				Bruttoskontobetrag
+			</td>
+			<td>
+				<input type="text" size="8" id="tfBruttoskonto" style="text-align: center;">
+			</td>
+			<td style="text-align:right">
+				<b id="skontobetrag_brutto"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Nettoskontobetrag
+			</td>
+			<td>
+				<input type="text" size="8" id="tfNettoskonto" style="text-align: center;">
+			</td>
+			<td style="text-align:right">
+				<b id="skontobetrag_netto"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Steuerkorrektur
+			</td>
+			<td>
+				<input type="text" size="8" id="tfSteuerkorrektur" style="text-align: center;">
+			</td>
+			<td style="text-align:right">
+				<b id="vorsteuerkorrektur"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&Uuml;berweisungsbetrag
+			</td>
+			<td>
+				<input type="text" size="8" id="tfUebwerweisungsbetrag" style="text-align: center;">
+			</td>
+			<td style="text-align:right">
+				<b id="ueberweisungsbetrag"></b>
+			</td>
+		</tr>
+	</table>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+	
+//	   =(Math.floor(Math.random() * (max - min) ) + min);
+
+// Jahr bestimmen:
+const heute = new Date(); 
+let jahr = (heute.getFullYear())-1;
+// Tage bestimmen:
+let tag_rechnung=(Math.floor(Math.random() * ( 26 -  21)) + 21);
+let tag_kaufvertrag=tag_rechnung-(Math.floor(Math.random() * ( 10 -  0)) + 0);
+let tag_ueberweisung=12+tag_rechnung;
+// Monate bestimmen:
+let monat_rechnung=(Math.floor(Math.random() * ( 10 -  1)) + 1);
+let monat_ueberweisung= monat_rechnung + 1;
+let zufallszahl = (Math.floor(Math.random() * ( 1 -  0)) + 0);
+let monat_kaufvertrag= monat_rechnung - zufallszahl;
+// Datumsangaben bestimmen:
+let datum_ueberweisung=tag_ueberweisung+"."+monat_ueberweisung+"."+jahr;
+let datum_kaufvertrag=tag_ueberweisung+"."+monat_ueberweisung+"."+jahr;
+let datum_rechnung=tag_ueberweisung+"."+monat_ueberweisung+"."+jahr;
+// Datumsangaben in der Form Jahr, Monat (0-basiert), Tag
+let datum_rechnung_ = new Date(jahr, monat_rechnung, tag_rechnung); // Rechnung
+let datum_ueberweisung_ = new Date(jahr, monat_ueberweisung, monat_ueberweisung); // Überweisung
+let datum_kaufvertrag_ = new Date(jahr, monat_kaufvertrag, monat_kaufvertrag); // Kaufvertrag
+// Berechne die Differenzen in Millisekunden
+let differenz1 = datum_ueberweisung_ - datum_rechnung_;
+// Konvertiere Millisekunden in Tage
+let tage_zwischen_ueberweisung_und_rechnungsdatum = differenz1 / (1000 * 60 * 60 * 24);
+
+// Rechnungsbetrag netto bestimmen:
+let rechnungsbetrag_netto=(Math.floor(Math.random() * (900000 - 200000) ) + 200000)/100;
+let rechnungsbetrag_brutto=Math.round(rechnungsbetrag_netto*1.19*100)/100;
+let vorsteuer=rechnungsbetrag_brutto-rechnungsbetrag_netto;
+
+// Zahlungsbedingungen erstellen:
+let ziel =10*(Math.floor(Math.random() * (6 - 3) ) + 3);
+let skontofrist =(Math.floor(Math.random() * (20 - 7) ) + 7);
+let skontosatz =(Math.floor(Math.random() * (3 - 1) ) + 1);
+let zlbd = " "+skontofrist+" Tage "+skontosatz+"% Skonto, "+ziel+" Tage Ziel "
+let skontobetrag_netto = Math.round((rechnungsbetrag_netto/100*skontosatz)*100)/100;
+let skontobetrag_brutto = Math.round((rechnungsbetrag_brutto/100*skontosatz)*100)/100;
+let vorsteuerkorrektur = Math.round(((skontobetrag_brutto - skontobetrag_netto)*100))/100;
+if(tage_zwischen_ueberweisung_und_rechnungsdatum > skontofrist){	
+	 skontobetrag_netto = 0;
+	 skontobetrag_brutto = 0;
+	 vorsteuerkorrektur = 0;
+}
+let ueberweisungsbetrag = rechnungsbetrag_brutto - skontobetrag_brutto;
+
+// ANTEIGEN:
+let zufallszahl_zzgl = (Math.floor(Math.random() * (100 - 1) ) + 1);
+
+if(zufallszahl_zzgl>60){
+	document.getElementById("rechnungsbetrag").innerHTML = rechnungsbetrag_netto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+" zzgl. 19% Ust.";	
+}else{
+	document.getElementById("rechnungsbetrag").innerHTML = rechnungsbetrag_brutto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+" einschl. 19% Ust.";	
+}
+document.getElementById("datum_rechnung").innerHTML = datum_rechnung_.toLocaleDateString('de-DE');
+document.getElementById("datum_ueberweisung").innerHTML = datum_ueberweisung_.toLocaleDateString('de-DE');
+document.getElementById("datum_kaufvertrag").innerHTML = datum_kaufvertrag_.toLocaleDateString('de-DE');
+document.getElementById("zahlungsbedingungen").innerHTML = zlbd;
+	
+// LÖSUNGEN löschen:
+document.getElementById("skontobetrag_brutto").innerHTML = "";	
+document.getElementById("skontobetrag_netto").innerHTML = "";	
+document.getElementById("vorsteuerkorrektur").innerHTML = "";
+document.getElementById("ueberweisungsbetrag").innerHTML = "";
+document.getElementById("musterloesung").innerHTML = "";
+
+
+// Lösungen: 
+function loesen() {
+	document.getElementById("musterloesung").innerHTML = "MUSTERL&Ouml;SUNG WURDE ANGESCHAUT";
+	
+	document.getElementById("skontobetrag_brutto").innerHTML = skontobetrag_brutto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});		
+	document.getElementById("skontobetrag_netto").innerHTML = skontobetrag_netto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});	
+	document.getElementById("vorsteuerkorrektur").innerHTML = vorsteuerkorrektur.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	document.getElementById("ueberweisungsbetrag").innerHTML = ueberweisungsbetrag.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+	
+	if(document.getElementById("tfBruttoskonto").value.replace(".", "").replace(",", ".")!=skontobetrag_brutto){
+		document.getElementById("skontobetrag_brutto").innerHTML = "<span class='fehler'>"+skontobetrag_brutto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+	}
+	if(document.getElementById("tfNettoskonto").value.replace(".", "").replace(",", ".")!=skontobetrag_netto){
+		document.getElementById("skontobetrag_netto").innerHTML = "<span class='fehler'>"+skontobetrag_netto.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+	}
+	if(document.getElementById("tfSteuerkorrektur").value.replace(".", "").replace(",", ".")!=vorsteuerkorrektur){
+		document.getElementById("vorsteuerkorrektur").innerHTML = "<span class='fehler'>"+vorsteuerkorrektur.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+	}
+	if(document.getElementById("tfUebwerweisungsbetrag").value.replace(".", "").replace(",", ".")!=ueberweisungsbetrag){
+		document.getElementById("ueberweisungsbetrag").innerHTML = "<span class='fehler'>"+ueberweisungsbetrag.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+	}
+	
+	
+}		
+
+function neueAufgabe() {
+	document.getElementById("tfBruttoskonto").value = "";
+	document.getElementById("tfNettoskonto").value = "";
+	document.getElementById("tfSteuerkorrektur").value = "";
+	document.getElementById("tfUebwerweisungsbetrag").value = "";
+	window.location.reload();
+}
+	
+	</script>
+  </body>
+</html>

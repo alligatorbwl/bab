@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&Uuml;berweisung Anlagegut</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<link rel="stylesheet" href="formatierung_002.css">
+  </head>
+  <body onload="neueAufgabe()">
+	<header>
+		&Uuml;berweisung einer Rechnung f&uuml;r Anlageg&uuml;ter
+	</header>
+	<main>
+	<p>
+		<b id="fall"></b>Eine Eingangsrechnung f&uuml;r <span id="produkt"></span> wird unter Skontoabzug &uuml;berwiesen.
+	</p>
+	<p>
+		<b>Aufgabe:</b> Erg&auml;nzen Sie den Buchungssatz zur &Uuml;berweisung.
+	</p> 	
+	<table>
+		<tr>
+			<td>
+			</td>
+			<td style="text-align:center">
+				Soll
+			</td>
+			<td>
+			</td>
+			<td style="text-align:center">
+				Haben
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				4400 Verbindlichkeiten aLuL
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf_verbindlichkeiten" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+				<b id="verb"></b>
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf1" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				an <span id="anlagenkonto"></span>
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf2" style="text-align: right;">
+			</td>
+			<td style="text-align:right">			
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf_betriebsausstatt" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+				<b id="betriebsausstattung"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				an 2600 Vorsteuer
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf3" style="text-align: right;">
+			</td>
+			<td style="text-align:right">	
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf_vst" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+				<b id="vst"></b>
+			</td>
+		</tr>
+		<tr>
+		<td>
+				an 2800 Bank
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf4" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+			</td>
+			<td style="text-align:right">
+				<input type="text" size="8" id="tf_bank" style="text-align: right;">
+			</td>
+			<td style="text-align:right">
+				<b id="bank"></b>
+			</td>
+		</tr>
+	</table>
+	<br>
+	</main>
+	<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">anderer Aufgabentyp</button>
+		<button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+		<a href="./index.html" class="link-button">Startseite</a>
+	</footer>
+	<script src="buchung_anlagen_ueberweisung_skonto.js"></script>
+  </body>
+</html>

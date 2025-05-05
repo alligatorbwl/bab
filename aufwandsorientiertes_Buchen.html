@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aufwandsorientiert buchen</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+<header>
+	aufwandsorientiert buchen
+</header>
+<main>
+	<p>	
+		Im Lager eines Handelsunternehmens sind <b id="abStk"></b> 
+		T-Shirts im Wert von <b id="abEur"></b>.
+		Dazu bekommen wir eine Lieferung von <b id="liefStk"></b> Stk. 
+		Laut Rechnung beträgt der Stückpreis <b id="liefEurStk"></b> 
+		<b id="zzgl"></b> 19% USt.
+		Am Periodenende sind <b id="ebStk"></b>
+		T-Shirts im Lager mit einem Wert von <b id="ebEur"></b>.
+	</p>
+	<table>
+	<tr>	
+		<td>
+			Liegt eine Bestandsmehrung oder Bestandsminderung vor?
+		</td>
+		<td>
+			<input type="text" size="8" id="tf1">
+			<b id="mehrung"></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Wie hoch ist die Bestandsmehrung bzw. -minderung in St&uuml;ck?
+		</td>
+		<td>
+			<input type="text" size="8" id="tf2">
+			<b id="mehrungStk"></b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Wie hoch ist die Bestandsmehrung bzw. -minderung in Euro?
+		</td>
+		<td>
+			<input type="text" size="8" id="tf3">
+			<b id="mehrungEur"></b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Wie lautet der Buchungssatz zum aufwandsorientierten Erfassen der Rechnung?
+		</td>
+		<td>
+		</td>
+	</tr>
+	</table>
+	<table>
+		<tr>
+			<td>
+				Konto 
+			</td>
+			<td>
+			</td>
+			<td>
+				Soll
+			</td>
+			<td>
+			</td>
+			<td>
+				Haben
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td>
+				<b id="konto_aufwendungen"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td>
+				<b id="betrag_aufwendungen"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf6">
+			</td>
+			<td>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf7">
+			</td>
+			<td>
+				<b id="konto_vorsteuer"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf8">
+			</td>
+			<td>
+				<b id="betrag_vorsteuer"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf9">
+			</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf10">
+			</td>
+			<td>
+				<b id="konto_verbindlichkeiten"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf11">
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				<input type="text" size="8" id="tf12">
+			</td>
+			<td>
+				<b id="betrag_verbindlichkeiten"></b>
+			</td>
+		</tr>
+	</table>
+		Wie lautet der Buchungssatz am Periodenende zum Aktualisieren des Aufwands- und Bestandskontos?
+	<table>
+		<tr>
+			<td>
+				Konto 
+			</td>
+			<td>
+			</td>
+			<td>
+				Soll
+			</td>
+			<td>
+			</td>
+			<td>
+				Haben
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td>
+				<b id="konto_periodenende_soll"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td>
+				<b id="betrag_periodendende_soll"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf6">
+			</td>
+			<td>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf7">
+			</td>
+			<td>
+				<b id="konto_periodenende_haben"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf8">
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				<input type="text" size="8" id="tf9">
+			</td>
+			<td>
+				<b id="betrag_periodendende_haben"></b>
+			</td>
+		</tr>
+	</table>
+	<table>
+	<tr>	
+		<td>
+			Wie hoch waren die tats&auml;chlichen Aufwendungen in der Periode?
+		</td>
+		<td>
+			<input type="text" size="8" id="tf10">
+			<b id="aufw_tatsaechlich"></b>
+		</td>
+	</tr>
+		<tr>	
+		<td>
+			Wie viele T-Shirts wurden in der Periode verkauf?
+		</td>
+		<td>
+			<input type="text" size="8" id="tf11">
+			<b id="verkauf_stk"></b>
+		</td>
+	</tr>
+	</table>
+	
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+		let abStk = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
+		let abEur = 0;
+		let zzgl_einschl = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		let zzgl = "nichts";
+		let liefStk=Math.floor(Math.random() * (60 - 20 + 1)) + 20;
+		let liefEurStk=Math.floor(Math.random() * (20 - 5 + 1)) + 5;
+		let ebStkMax = (abStk + liefStk);
+		let ebStkMin = (abStk - liefStk);
+		let ebEur=Math.floor(Math.random() * (ebStkMax - ebStkMin + 1)) + ebStkMin;
+		let ebStk=ebEur;
+		let mehrung="";
+		let mehrungEur=0;
+		let mehrungStk=0;
+		let bezugspreis=0;
+		let aufw_tatsaechlich=0;
+		let verkauf_stk=0;
+		let aufw=0;
+		let vst=0;
+		let verb=0;
+				
+		if(zzgl_einschl>1){
+			zzgl="zzgl.";
+			bezugspreis=liefEurStk;
+			}else{
+			zzgl="einschl.";
+			bezugspreis=liefEurStk/1.19;
+		}
+		abEur=abStk*bezugspreis;
+		ebEur=ebEur*bezugspreis;
+		if(ebEur==abEur){
+			ebEur=ebEur+liefEurStk;
+			ebStk=ebStk+1;
+		}
+		if(ebEur>abEur){
+			mehrung="Bestandsmehrung";
+			mehrungEur=ebEur-abEur;
+			aufw_tatsaechlich=mehrungEur*(-1);
+		}else{
+			mehrung="Bestandsminderung";
+			mehrungEur=abEur-ebEur;
+			aufw_tatsaechlich=mehrungEur;
+		}
+		mehrungStk=mehrungEur/bezugspreis;
+		
+		aufw=liefStk*bezugspreis;
+		vst=aufw*0.19;
+		verb=aufw+vst;
+		aufw_tatsaechlich=aufw_tatsaechlich+aufw;
+		verkauf_stk=Math.round(aufw_tatsaechlich/bezugspreis);
+		
+		
+
+		function neueAufgabe() {
+		abStk = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
+		abEur = 0;
+		zzgl_einschl = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		zzgl = "nichts";
+		liefStk=Math.floor(Math.random() * (60 - 20 + 1)) + 20;
+		liefEurStk=Math.floor(Math.random() * (20 - 5 + 1)) + 5;
+		ebStkMax = (abStk + liefStk);
+		ebStkMin = (abStk - liefStk);
+		ebEur=Math.floor(Math.random() * (ebStkMax - ebStkMin + 1)) + ebStkMin;
+		ebStk=ebEur;
+		mehrung="";
+		mehrungEur=0;
+		mehrungStk=0;
+		bezugspreis=0;
+		aufw=0;
+		vst=0;
+		verb=0;
+		aufw_tatsaechlich=0;
+		verkauf_stk=0;
+				
+		if(zzgl_einschl>1){
+			zzgl="zzgl.";
+			bezugspreis=liefEurStk;
+			}else{
+			zzgl="einschl.";
+			bezugspreis=liefEurStk/1.19;
+		}
+		abEur=abStk*bezugspreis;
+		ebEur=ebEur*bezugspreis;
+		if(ebEur==abEur){
+			ebEur=ebEur+liefEurStk;
+			ebStk=ebStk+1;
+		}
+		if(ebEur>abEur){
+			mehrung="Bestandsmehrung";
+			mehrungEur=ebEur-abEur;
+			aufw_tatsaechlich=mehrungEur*(-1);
+		}else{
+			mehrung="Bestandsminderung";
+			mehrungEur=abEur-ebEur;
+			aufw_tatsaechlich=mehrungEur;
+		}
+		mehrungStk=Math.round(mehrungEur/bezugspreis);
+		
+		aufw=liefStk*bezugspreis;
+		vst=aufw*0.19;
+		verb=aufw+vst;
+		aufw_tatsaechlich=aufw_tatsaechlich+aufw;
+		verkauf_stk=Math.round(aufw_tatsaechlich/bezugspreis);
+		
+		
+		document.getElementById("abStk").innerHTML = abStk;
+		
+		document.getElementById("abEur").innerHTML = abEur.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		
+		document.getElementById("liefStk").innerHTML = liefStk;
+		document.getElementById("liefEurStk").innerHTML = liefEurStk.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		
+		document.getElementById("zzgl").innerHTML = zzgl;
+		
+		document.getElementById("ebEur").innerHTML = ebEur.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		
+		document.getElementById("ebStk").innerHTML = ebStk;
+		
+
+			document.getElementById("mehrung").innerHTML = "";
+			document.getElementById("mehrungEur").innerHTML = "";
+			document.getElementById("mehrungStk").innerHTML = "";
+		
+			document.getElementById("konto_aufwendungen").innerHTML = "";
+			document.getElementById("konto_vorsteuer").innerHTML = "";
+			document.getElementById("konto_verbindlichkeiten").innerHTML = "";
+			
+			document.getElementById("betrag_aufwendungen").innerHTML = "";
+			document.getElementById("betrag_vorsteuer").innerHTML = "";
+			document.getElementById("betrag_verbindlichkeiten").innerHTML = "";
+			
+
+			document.getElementById("konto_periodenende_haben").innerHTML = "";
+			document.getElementById("konto_periodenende_soll").innerHTML = "";		
+			document.getElementById("betrag_periodendende_soll").innerHTML = "";
+			document.getElementById("betrag_periodendende_haben").innerHTML = "";
+			document.getElementById("aufw_tatsaechlich").innerHTML = "";
+			document.getElementById("verkauf_stk").innerHTML = "";
+			
+			document.getElementById("tf1").value = "";
+			document.getElementById("tf2").value = "";
+			document.getElementById("tf3").value = "";
+			document.getElementById("tf4").value = "";
+			document.getElementById("tf5").value = "";
+			document.getElementById("tf6").value = "";
+			document.getElementById("tf7").value = "";
+			document.getElementById("tf8").value = "";
+			document.getElementById("tf9").value = "";
+			document.getElementById("tf10").value = "";
+			document.getElementById("tf11").value = "";
+			document.getElementById("tf12").value = "";
+			
+			document.getElementById("tf13").value = "";
+			document.getElementById("tf14").value = "";
+			document.getElementById("tf15").value = "";
+			document.getElementById("tf16").value = "";
+			document.getElementById("tf17").value = "";
+			document.getElementById("tf18").value = "";
+			document.getElementById("tf19").value = "";
+			document.getElementById("tf20").value = "";
+			document.getElementById("tf21").value = "";
+		}
+
+		function loesen() {
+		
+		if(ebEur>abEur){
+			document.getElementById("konto_periodenende_soll").innerHTML = "2210 Handelswaren";
+			document.getElementById("konto_periodenende_haben").innerHTML = "an 6080 Aufwendungen für Handelswaren";
+		}else{
+			document.getElementById("konto_periodenende_haben").innerHTML = "an 2210 Handelswaren";
+			document.getElementById("konto_periodenende_soll").innerHTML = "6080 Aufwendungen für Handelswaren";		
+		}
+		document.getElementById("betrag_periodendende_soll").innerHTML = mehrungEur.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		document.getElementById("betrag_periodendende_haben").innerHTML = mehrungEur.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		
+		document.getElementById("mehrung").innerHTML = mehrung;
+		document.getElementById("mehrungStk").innerHTML = mehrungStk;
+		
+		document.getElementById("mehrungEur").innerHTML = mehrungEur.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		
+			document.getElementById("konto_aufwendungen").innerHTML = "6080 Aufwendungen für Handelswaren";
+			document.getElementById("konto_vorsteuer").innerHTML = "2600 Vorsteuer";
+			document.getElementById("konto_verbindlichkeiten").innerHTML = "an 4400 Verbindlichkeiten aLuL";
+			document.getElementById("betrag_aufwendungen").innerHTML = aufw.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("betrag_vorsteuer").innerHTML = vst.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("betrag_verbindlichkeiten").innerHTML = verb.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});	
+			
+			document.getElementById("aufw_tatsaechlich").innerHTML = aufw_tatsaechlich.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});	
+			
+			document.getElementById("verkauf_stk").innerHTML = verkauf_stk;
+			
+		}
+	</script>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowak</title>
+	<link rel="stylesheet" href="formatierung.css">
+	
+	<style id="idFehler">
+	.table-container {
+		display: grid;
+		place-items: center;
+	}
+	</style> 
+	
+  </head>
+  <body onload="neueAufgabe()" style="text-align:center;">
+  <header>
+	Kapitalwert
+  </header>
+  <main class="grid_2spalten">
+  <div class="spalteB">
+	<p>
+	Berechnen Sie den Kapitalwert der Investition <br>
+	mit einem Kalkulationszinssatz von <b id="idZinssatz"></b>.
+	</p>
+	<table class="table-container">
+		<tr>
+			<td style="text-align: center;">
+			 Jahr
+			</td>
+			<td style="text-align: center;">
+			 Zahlung
+			</td>
+			<td style="text-align: center;">
+			 Abzinsung
+			</td>
+			<td style="text-align: center;">
+			 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">
+				<b id="idJahr0"></b> 
+			</td>
+			<td style="text-align: right;">
+				<b id="idZahlung0"></b> 
+			</td>
+			<td style="text-align: right;">
+				<input type="text" size="8" id="tfAbzinsung0" style="text-align: right;">
+			</td>
+			<td style="text-align: right;">
+				<b id="idAbzinsung0"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">
+				<b id="idJahr1"></b> 
+			</td>
+			<td style="text-align: right;">
+				<b id="idZahlung1"></b> 
+			</td>
+			<td style="text-align: right;">
+				<input type="text" size="8" id="tfAbzinsung1" style="text-align: right;">
+			</td>
+			<td style="text-align: right;">
+				<b id="idAbzinsung1"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">
+				<b id="idJahr2"></b> 
+			</td>
+			<td style="text-align: right;">
+				<b id="idZahlung2"></b> 
+			</td>
+			<td style="text-align: right;">
+				<input type="text" size="8" id="tfAbzinsung2" style="text-align: right;">
+			</td>
+			<td style="text-align: right;">
+				<b id="idAbzinsung2"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;">
+				<b id="idJahr3"></b> 
+			</td>
+			<td style="text-align: right;">
+				<b id="idZahlung3"></b> 
+			</td>
+			<td style="text-align: right;">
+				<input type="text" size="8" id="tfAbzinsung3" style="text-align: right;">
+			</td>
+			<td style="text-align: right;">
+				<b id="idAbzinsung3"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: right;">
+				Kapitalwert:
+			</td>
+			<td style="text-align: right;">
+				<input type="text" size="8" id="tfKapitalwert" style="text-align: right;">
+			</td>
+			<td style="text-align: right;">
+				<b id="idKapitalwert"></b> 
+			</td>
+		</tr>		
+	</table>
+	</div>
+	<div class="spalteA">
+	<p class="table-container">
+		<iframe width="593" height="337" src="https://www.youtube.com/embed/KePqUUZhKls" title="Kapitalwertmethode" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</p>
+	</div>
+  </main>
+  <footer>
+  
+   
+		<a href="https://www.youtube.com/embed/KePqUUZhKls" class="link-button" target="_blank" style="background-color: #ecf0f1;color: #2c3e50;">Video</a>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html" class="link-button">Startseite</a>
+  </footer>
+  <script>
+		let idZinssatz;
+		let idJahr0;
+		let idJahr1;
+		let idJahr2;
+		let idJahr3;
+		let idZahlung0;
+		let idZahlung1;
+		let idZahlung2;
+		let idZahlung3;
+		let idAbzinsung0;
+		let idAbzinsung1;
+		let idAbzinsung2;
+		let idAbzinsung3;
+		let idKapitalwert;
+		let tfAbzinsung0;
+		let tfAbzinsung1;
+		let tfAbzinsung2;
+		let tfAbzinsung3;
+		let tfKapitalwert;
+		let abfakt;
+		let anzAufgaben=1;
+		let verzinsungsabweichung;
+		let verzinsung;
+	
+let formatierer = new Intl.NumberFormat('de-DE', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+	
+	
+function neueAufgabe() {
+	// Berechnen:
+	anzAufgaben++;
+idZinssatz = Math.floor(Math.random() * (8 - 4 + 1)) + 4;
+abfakt = 1 + idZinssatz / 100;
+idJahr0 = 0;
+idJahr1 = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+idJahr2 = idJahr1 + Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+idJahr3 = idJahr2 + Math.floor(Math.random() * (2 - 1 + 1)) + 1 + (anzAufgaben % 2);
+
+verzinsungsabweichung = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+if (anzAufgaben % 2 == 1) {
+  verzinsung = idZinssatz + verzinsungsabweichung;
+} else {
+  verzinsung = idZinssatz - verzinsungsabweichung;
+}
+
+idZahlung0 = -100 * (Math.floor(Math.random() * (30 - 10 + 1)) + 10);
+idZahlung1 = Math.round(-1 * idZahlung0 * 1.0 * verzinsung / 100);
+idZahlung2 = Math.round(-1 * idZahlung0 * 1.8 * verzinsung / 100);
+idZahlung3 = Math.round(-1 * idZahlung0 * 2.5 * verzinsung / 100 + -1 * idZahlung0);
+
+idAbzinsung0 = idZahlung0;
+idAbzinsung1 = (idZahlung1 / Math.pow(abfakt, idJahr1)).toFixed(2);
+idAbzinsung2 = (idZahlung2 / Math.pow(abfakt, idJahr2)).toFixed(2);
+idAbzinsung3 = (idZahlung3 / Math.pow(abfakt, idJahr3)).toFixed(2);
+idKapitalwert = parseFloat(idAbzinsung0) + parseFloat(idAbzinsung1) + parseFloat(idAbzinsung2) + parseFloat(idAbzinsung3);
+
+
+	document.getElementById("idZinssatz").innerHTML = idZinssatz.toFixed(0)+"%";	
+	document.getElementById("idJahr0").innerHTML = idJahr0;
+	document.getElementById("idJahr1").innerHTML = idJahr1;
+	document.getElementById("idJahr2").innerHTML = idJahr2;
+	document.getElementById("idJahr3").innerHTML = idJahr3;
+	document.getElementById("idZahlung0").innerHTML = formatierer.format(idZahlung0);
+	document.getElementById("idZahlung1").innerHTML = formatierer.format(idZahlung1);
+	document.getElementById("idZahlung2").innerHTML = formatierer.format(idZahlung2);
+	document.getElementById("idZahlung3").innerHTML = formatierer.format(idZahlung3);
+	// löschen der Lösung:
+	document.getElementById("idAbzinsung0").innerHTML = "";
+	document.getElementById("idAbzinsung1").innerHTML = "";
+	document.getElementById("idAbzinsung2").innerHTML = "";
+	document.getElementById("idAbzinsung3").innerHTML = "";
+	document.getElementById("idKapitalwert").innerHTML = "";
+	// löschen der User-Inputs:
+	document.getElementById("tfAbzinsung0").value = "";
+	document.getElementById("tfAbzinsung1").value = "";
+	document.getElementById("tfAbzinsung2").value = "";
+	document.getElementById("tfAbzinsung3").value = "";
+	document.getElementById("tfKapitalwert").value = "";
+	
+	}
+
+	function loesen() {
+	// Lösung anzeigen:
+	document.getElementById("idAbzinsung0").innerHTML = formatierer.format(idAbzinsung0);
+	document.getElementById("idAbzinsung1").innerHTML = formatierer.format(idAbzinsung1);
+	document.getElementById("idAbzinsung2").innerHTML = formatierer.format(idAbzinsung2);
+	document.getElementById("idAbzinsung3").innerHTML = formatierer.format(idAbzinsung3);
+	document.getElementById("idKapitalwert").innerHTML = formatierer.format(idKapitalwert);
+	}
+	</script>
+  </body>
+</html>

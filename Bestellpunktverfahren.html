@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellpunktverfahren</title>
+	<link rel="stylesheet" href="formatierung.css">
+	
+	<style id="idFehler"></style> 
+	
+  </head>
+  <body onload="neueAufgabe()">
+<header>
+	Bestellpunktverfahren
+</header>
+  <main class="grid_2spalten" >
+  <div class="spalteA">
+	<br><br><br>
+	<p>	
+		<b id="fall"></b> Berechnen Sie die fehlenden Angaben.
+	</p>
+	<table>
+		<tr>
+			<td style="text-align: right;">
+			Meldebestand: 
+			</td>
+			<td>
+				<input type="text" size="5" id="tfMeldebestand" style="text-align: center;">
+			</td>			<td>
+				<b id="idMeldebestand"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+			Sicherheitsbestand:
+			</td>
+			<td>
+				<input type="text" size="5" id="tfSicherheitsbestand" style="text-align: center;">
+			</td>			
+			<td>
+				<b id="idSicherheitsbestand"></b>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+			&Uuml;berbr&uuml;ckungstage des Sicherheitsbestands: 
+			</td>		
+			<td>
+				<input type="text" size="5" id="tfUeberbrueckungstage" style="text-align: center;">
+			</td>	
+			<td>
+				<b id="idUeberbrueckungstage"></b> 
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+			Lieferzeit:
+			</td>
+			<td>
+				<input type="text" size="5" id="tfLieferzeit" style="text-align: center;">
+			</td>			
+			<td>
+				<b id="idLieferzeit"></b>  
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+			durchschnittlicher Tagesverbrauch:
+			</td>
+			<td>
+				<input type="text" size="5" id="tfTagesverbrauch" style="text-align: center;">
+			</td>
+			<td>
+				<b id="idTagesverbrauch"></b>  
+			</td>
+		</tr>
+	</table>
+  </div>
+  <div class="spalteB">	
+	<img src="./Bestellpunktverfahren.jpg" alt="Grafik zum Bestellpunktverfahren" width="600" height="360"/>
+  </div>
+</main>
+<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">anderer Aufgabentyp</button>
+		<button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+</footer>
+<script>
+		let tagesverbrauch;
+		let ueberbrueckungstage;
+		let lieferzeit;
+		let sicherheitsbestand;
+		let meldebestand;
+		let richtig;
+		let aufgabentyp=1;
+	
+	function gleicheAufgabe(){
+		aufgabentyp--;
+		neueAufgabe();
+	}
+	
+		function neueAufgabe() {	
+		tagesverbrauch = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+		ueberbrueckungstage = Math.floor(Math.random() * (10 - 3 + 1)) + 3;
+		lieferzeit = Math.floor(Math.random() * (25 - 10 + 1)) + 10;
+		lieferzeit = lieferzeit + ueberbrueckungstage;
+		sicherheitsbestand = tagesverbrauch * ueberbrueckungstage;
+		meldebestand = sicherheitsbestand + tagesverbrauch*lieferzeit;
+				
+		document.getElementById("idLieferzeit").innerHTML = " Tage";		
+		document.getElementById("idMeldebestand").innerHTML = " St&uuml;ck";
+		document.getElementById("idSicherheitsbestand").innerHTML = " St&uuml;ck";
+		document.getElementById("idTagesverbrauch").innerHTML = " St&uuml;ck/Tag";
+		document.getElementById("idUeberbrueckungstage").innerHTML = "Tage";
+
+		document.getElementById("tfTagesverbrauch").value = tagesverbrauch;
+		document.getElementById("tfLieferzeit").value = lieferzeit;
+		document.getElementById("tfSicherheitsbestand").value = sicherheitsbestand;
+		document.getElementById("tfMeldebestand").value = meldebestand;		
+		document.getElementById("tfUeberbrueckungstage").value = ueberbrueckungstage;
+		
+		
+		if(aufgabentyp==10){
+			aufgabentyp=1;
+		}
+		document.getElementById("fall").innerHTML = "Fall "+aufgabentyp+": ";
+		switch(aufgabentyp) {
+			case 1:
+				document.getElementById("tfUeberbrueckungstage").value = "";	
+				document.getElementById("tfMeldebestand").value = "";		
+				break;
+			case 2:
+				document.getElementById("tfUeberbrueckungstage").value = "";	
+				document.getElementById("tfLieferzeit").value = "";
+				break;
+			case 3:
+				document.getElementById("tfSicherheitsbestand").value = "";	
+				document.getElementById("tfMeldebestand").value = "";
+				break;
+			case 4:
+				document.getElementById("tfTagesverbrauch").value = "";	
+				document.getElementById("tfMeldebestand").value = "";
+				break;
+			case 5:
+				document.getElementById("tfSicherheitsbestand").value = "";	
+				document.getElementById("tfLieferzeit").value = "";
+				break;
+			case 6:
+				document.getElementById("tfUeberbrueckungstage").value = "";	
+				document.getElementById("tfSicherheitsbestand").value = "";
+				break;
+			case 7:
+				document.getElementById("tfTagesverbrauch").value = "";	
+				document.getElementById("tfLieferzeit").value = "";
+				break;
+			case 8:
+				document.getElementById("tfTagesverbrauch").value = "";	
+				document.getElementById("tfUeberbrueckungstage").value = "";
+				break;
+			case 9:
+				document.getElementById("tfTagesverbrauch").value = "";	
+				document.getElementById("tfSicherheitsbestand").value = "";
+				break;
+			  default:
+				// code block
+			} 
+			aufgabentyp++;	
+			
+		//	document.getElementById("idFeedback").innerHTML = "";
+		//	document.getElementById("idFehler").innerHTML = "";
+		}
+
+		function loesen() {
+			document.getElementById("idLieferzeit").innerHTML = lieferzeit+" Tage";
+			document.getElementById("idMeldebestand").innerHTML = meldebestand+" St&uuml;ck";
+			document.getElementById("idSicherheitsbestand").innerHTML = sicherheitsbestand+" St&uuml;ck";
+			document.getElementById("idTagesverbrauch").innerHTML = tagesverbrauch+" St&uuml;ck/Tag";
+			document.getElementById("idUeberbrueckungstage").innerHTML = ueberbrueckungstage+" Tage";
+			
+			
+			// Antwort checken:
+			if(document.getElementById("tfLieferzeit").value==lieferzeit && document.getElementById("tfMeldebestand").value==meldebestand &&document.getElementById("tfSicherheitsbestand").value==sicherheitsbestand && document.getElementById("tfTagesverbrauch").value==tagesverbrauch && document.getElementById("tfUeberbrueckungstage").value==ueberbrueckungstage){
+				// alles richtig in Textfeldern:
+				// alert("ok");
+				// Feedback:
+				// document.getElementById("idFeedback").innerHTML = "richtig";
+			}else{
+				// mindestens ein Textfeld falsch:
+				// alert("Fehler");
+				aufgabentyp--;
+				if(aufgabentyp<1){
+					aufgabentyp=9;
+				}
+				// Feedback:
+				// document.getElementById("idFeedback").innerHTML = "falsch";
+				// document.getElementById("idFehler").innerHTML = " b{color: OrangeRed;}";
+				// Lösung zum Fehler farblich markieren:
+				if(document.getElementById("tfLieferzeit").value!=lieferzeit){
+					document.getElementById("idLieferzeit").innerHTML = "<span class='fehler'>"+lieferzeit+" Tage</span>";
+				}
+				if(document.getElementById("tfMeldebestand").value!=meldebestand){
+					document.getElementById("idMeldebestand").innerHTML = "<span class='fehler'>"+meldebestand+" St&uuml;ck</span>";
+				}
+				if(document.getElementById("tfSicherheitsbestand").value!=sicherheitsbestand){
+					document.getElementById("idSicherheitsbestand").innerHTML = "<span class='fehler'>"+sicherheitsbestand+" St&uuml;ck</span>";
+				}
+				if(document.getElementById("tfTagesverbrauch").value!=tagesverbrauch){
+					document.getElementById("idTagesverbrauch").innerHTML = "<span class='fehler'>"+tagesverbrauch+" Tage</span>";
+				}
+				if(document.getElementById("tfUeberbrueckungstage").value!=ueberbrueckungstage){
+					document.getElementById("idUeberbrueckungstage").innerHTML = "<span class='fehler'>"+ueberbrueckungstage+" Tage</span>";
+				}
+				
+			}
+			
+			
+			
+		}
+	</script>
+  </body>
+</html>

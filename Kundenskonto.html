@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nettoersparnis</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+	Kundenskonto
+  </header>
+  <main>
+	<p>	
+		Wie lauten die Buchungss&auml;tze?
+	</p>
+	<p>	
+		Der Kunde XY bekommt eine Rechnung f&uuml;r eine Lieferung Handelswaren
+		von uns in H&ouml;he von <b id="rechnungsbetrag"></b> <b id="zzgl"></b>
+		19% USt. mit <b id="skontosatz"></b>% Skonto.
+	</p>
+	
+	<table>
+		<tr>
+			<td>
+				Konto 
+			</td>
+			<td>
+			</td>
+			<td>
+				Soll
+			</td>
+			<td>
+			</td>
+			<td>
+				Haben
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf1">
+			</td>
+			<td>
+				<b id="konto_forderungen"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf2">
+			</td>
+			<td>
+				<b id="betrag_forderungen"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf3">
+			</td>
+			<td>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td>
+				<b id="konto_umsatzerloese"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				<input type="text" size="8" id="tf6">
+			</td>
+			<td>
+				<b id="betrag_umsatzerloese"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf7">
+			</td>
+			<td>
+				<b id="konto_umsatzsteuer"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf8">
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				<input type="text" size="8" id="tf9">
+			</td>
+			<td>
+				<b id="betrag_umsatzsteuer"></b>
+			</td>
+		</tr>
+	</table>
+	
+	<p>
+		Der Kunde &uuml;berweist den Rechnungsbetrag von oben unter Skontoabzug an uns.
+	<p>
+	
+		<table>
+		<tr>
+			<td colspan="1">
+				Konto 
+			</td>
+			<td>
+			</td>
+			<td colspan="1">
+				Soll
+			</td>
+			<td>
+			</td>
+			<td colspan="1">
+				Haben
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf10">
+			</td>
+			<td>
+				<b id="konto_bank"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf11">
+			</td>
+			<td>
+				<b id="betrag_bank"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf12">
+			</td>
+			<td>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf13">
+			</td>
+			<td>
+				<b id="konto_skonto"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf14">
+			</td>
+			<td>
+				<b id="betrag_nettoskonto"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf15">
+			</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf16">
+			</td>
+			<td>
+				<b id="konto_umsatzsteuer2"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf17">
+			</td>
+			<td>
+				<b id="betrag_umsatzsteuer2"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf18">
+			</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" size="8" id="tf19">
+			</td>
+			<td>
+				<b id="konto_forderungen2"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf20">
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				<input type="text" size="8" id="tf21">
+			</td>
+			<td>
+				<b id="betrag_forderungen2"></b>
+			</td>
+		</tr>
+	</table>
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+  </footer>
+  <script>
+		let rechnungsbetrag = Math.floor(Math.random() * (5000 - 500 + 1)) + 500;
+		let skontosatz = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+		let zzgl_einschl = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		let zzgl = "nichts";
+		let ue=0;
+		let ust=0;
+		let ford=0;
+		let nettoskonto=0;
+		let ustkorrektur=0;
+		let bank=0;
+		let ford2=0;
+				
+		if(zzgl_einschl>1){
+			zzgl="zzgl."
+			ue=rechnungsbetrag;
+			ust=ue*19/100;
+			ford=ue+ust;
+			}else{
+			zzgl="einschl."
+			ford=rechnungsbetrag;
+			ust=ford/119*19;
+			ue=ford-ust;
+		}
+		ford2=ford;
+		bank=ford/100*(100-skontosatz);
+		nettoskonto=(ford-bank)/119*100;
+		ustkorrektur=(ford-bank)/119*19;
+		
+
+		function neueAufgabe() {
+		rechnungsbetrag = Math.floor(Math.random() * (5000 - 500 + 1)) + 500;
+		skontosatz = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+		zzgl_einschl = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+		zzgl = "nichts";
+		ue=0;
+		ust=0;
+		ford=0;
+		if(zzgl_einschl>1){
+			zzgl="zzgl."
+			ue=rechnungsbetrag;
+			ust=ue*19/100;
+			ford=ue+ust;
+			}else{
+			zzgl="einschl."
+			ford=rechnungsbetrag;
+			ust=ford/119*19;
+			ue=ford-ust;
+		}		
+		
+		ford2=ford;
+		bank=ford/100*(100-skontosatz);
+		nettoskonto=(ford-bank)/119*100;
+		ustkorrektur=(ford-bank)/119*19;
+		
+		
+		document.getElementById("rechnungsbetrag").innerHTML = rechnungsbetrag.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+		document.getElementById("zzgl").innerHTML = zzgl;
+		document.getElementById("skontosatz").innerHTML = skontosatz;
+		
+			document.getElementById("konto_forderungen").innerHTML = "";
+			document.getElementById("konto_umsatzerloese").innerHTML = "";
+			document.getElementById("konto_umsatzsteuer").innerHTML = "";
+			
+			document.getElementById("betrag_forderungen").innerHTML = "";
+			document.getElementById("betrag_umsatzerloese").innerHTML = "";
+			document.getElementById("betrag_umsatzsteuer").innerHTML = "";
+
+			document.getElementById("konto_bank").innerHTML = "";
+			document.getElementById("konto_forderungen2").innerHTML = "";
+			document.getElementById("konto_umsatzsteuer2").innerHTML = "";
+			document.getElementById("konto_skonto").innerHTML = "";
+	
+			document.getElementById("betrag_forderungen2").innerHTML = "";
+			document.getElementById("betrag_bank").innerHTML = "";
+			document.getElementById("betrag_nettoskonto").innerHTML = "";
+			document.getElementById("betrag_umsatzsteuer2").innerHTML = "";
+			
+			document.getElementById("tf1").value = "";
+			document.getElementById("tf2").value = "";
+			document.getElementById("tf3").value = "";
+			document.getElementById("tf4").value = "";
+			document.getElementById("tf5").value = "";
+			document.getElementById("tf6").value = "";
+			document.getElementById("tf7").value = "";
+			document.getElementById("tf8").value = "";
+			document.getElementById("tf9").value = "";
+			document.getElementById("tf10").value = "";
+			document.getElementById("tf11").value = "";
+			document.getElementById("tf12").value = "";
+			document.getElementById("tf13").value = "";
+			document.getElementById("tf14").value = "";
+			document.getElementById("tf15").value = "";
+			document.getElementById("tf16").value = "";
+			document.getElementById("tf17").value = "";
+			document.getElementById("tf18").value = "";
+			document.getElementById("tf19").value = "";
+			document.getElementById("tf20").value = "";
+			document.getElementById("tf21").value = "";
+			
+		}
+
+		function loesen() {
+			document.getElementById("konto_forderungen").innerHTML = "2400 Forderungen aLuL";
+			document.getElementById("konto_umsatzerloese").innerHTML = "an 5010 Umsatzerl&ouml;se";
+			document.getElementById("konto_umsatzsteuer").innerHTML = "an 4800 Umsatzsteuer";
+			document.getElementById("betrag_forderungen").innerHTML = ford.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			document.getElementById("betrag_umsatzerloese").innerHTML = ue.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			document.getElementById("betrag_umsatzsteuer").innerHTML = ust.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("konto_bank").innerHTML = "2800 Bank";
+			document.getElementById("konto_forderungen2").innerHTML = "an 2400 Forderungen aLuL";
+			document.getElementById("konto_umsatzsteuer2").innerHTML = "4800 Umsatzsteuer";
+			document.getElementById("konto_skonto").innerHTML = "5091 Kundenskonti";
+			
+			document.getElementById("betrag_forderungen2").innerHTML = ford2.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("betrag_bank").innerHTML = bank.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("betrag_nettoskonto").innerHTML = nettoskonto.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			document.getElementById("betrag_umsatzsteuer2").innerHTML = ustkorrektur.toLocaleString('de-DE',{  style: 'currency',
+			currency: 'EUR',});
+			
+			
+		}
+	</script>
+  </body>
+</html>

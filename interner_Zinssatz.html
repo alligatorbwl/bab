@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowak</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style id="idFehler"></style> 	
+  </head>
+  <body onload="neueAufgabe()" style="text-align:center;">
+  <header>interner Zinssatz
+  </header>
+  <main>
+	<p style="text-align: center;">	
+	Berechnen Sie den internen Zinssatz einer Investition, die bei einem 
+	<br> 
+	Kalkulationszinssatz von 
+	<b id="idx1"></b>
+	einen Kapitalwert in Höhe von 
+	<b id="idy1"></b>
+	hat und bei einem<br>
+	Kalkulationszinssatz von
+	<b id="idx2" style="color:pink;"></b>
+	einen Kapitalwert in Höhe von 
+	<b id="idy2" style="color:pink;"></b>
+	hat. 
+	</p>
+			interner Zinssatz:
+			<input type="text" size="5" id="tfInternerZinssatz" style="text-align: center;">
+			<b id="idInternerZinssatz"></b> 
+	</p>
+	<p>
+	<iframe width="593" height="337" src="https://www.youtube.com/embed/qFemIoOxqYg" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</p>
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+  </footer>
+  <script>
+  
+  
+  // iframe width="949" height="534" 
+  
+		let x1;
+		let y1;
+		let x2;
+		let y2;
+		let internerZinssatz;
+		let steigung;
+		let x1_anteil_am_internenZinssatz;
+		let x2_anteil_am_internenZinssatz;
+		let aufgabentyp=1;
+
+		function neueAufgabe() {
+		steigung = Math.floor(Math.random() * (750 - 150 + 1)) + 150;
+		internerZinssatz=Math.floor(Math.random() * (130 - 70 + 1)) + 70;
+		internerZinssatz=internerZinssatz/10;		
+		if(aufgabentyp==1){
+			// x1 soll zwischen 15% und 30% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (30 - 15 + 1)) + 15;
+			// x2 soll zwischen 40% und 60% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (60 - 40 + 1)) + 40;
+		}
+		if(aufgabentyp==2){
+			// x1 soll zwischen 110% und 130% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (130 - 110 + 1)) + 110;
+			// x2 soll zwischen 140% und 160% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (160 - 140 + 1)) + 140;
+		}
+		if(aufgabentyp==3){
+			// x1 soll zwischen 50% und 70% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (70 - 50 + 1)) + 50;
+			// x2 soll zwischen 110% und 125% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (125 - 110 + 1)) + 110;
+		}
+		// 1. Kapitalwert berechnen:
+		x1_anteil_am_internenZinssatz = x1_anteil_am_internenZinssatz/100;
+		x1 = internerZinssatz * x1_anteil_am_internenZinssatz;
+		x1 = Math.ceil(x1);
+		y1 = (internerZinssatz-x1) * steigung;	
+		// 2. Kapitalwert berechnen:
+		x2_anteil_am_internenZinssatz = x2_anteil_am_internenZinssatz/100;
+		x2 = internerZinssatz * x2_anteil_am_internenZinssatz;
+		x2 = Math.ceil(x2);
+		if(x2==x1){
+			x2++;
+		}
+		y2 = (internerZinssatz-x2) * steigung;
+
+		
+		// Anzeigen der Werte:
+		document.getElementById("idx1").innerHTML = x1.toFixed(0)+"%";		
+		document.getElementById("idy1").innerHTML = y1.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		document.getElementById("idx2").innerHTML = x2.toFixed(0)+"%";
+		document.getElementById("idy2").innerHTML = y2.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		document.getElementById("tfInternerZinssatz").value = "";
+		document.getElementById("idInternerZinssatz").innerHTML = "";
+
+		// Aufgabentyp wechseln:
+		aufgabentyp++;
+		if(aufgabentyp>3){
+			aufgabentyp = 1;
+		}					
+}
+
+		function loesen() {		
+			document.getElementById("idInternerZinssatz").innerHTML = internerZinssatz.toFixed(1)+"%";
+		}
+	</script>
+  </body>
+</html><!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowak</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style id="idFehler"></style> 	
+  </head>
+  <body onload="neueAufgabe()" style="text-align:center;">
+  <header>interner Zinssatz
+  </header>
+  <main>
+	<p style="text-align: center;">	
+	Berechnen Sie den internen Zinssatz einer Investition, die bei einem 
+	<br> 
+	Kalkulationszinssatz von 
+	<b id="idx1"></b>
+	einen Kapitalwert in Höhe von 
+	<b id="idy1"></b>
+	hat und bei einem<br>
+	Kalkulationszinssatz von
+	<b id="idx2" style="color:pink;"></b>
+	einen Kapitalwert in Höhe von 
+	<b id="idy2" style="color:pink;"></b>
+	hat. 
+	</p>
+			interner Zinssatz:
+			<input type="text" size="5" id="tfInternerZinssatz" style="text-align: center;">
+			<b id="idInternerZinssatz"></b> 
+	</p>
+	<p>
+	<iframe width="593" height="337" src="https://www.youtube.com/embed/qFemIoOxqYg" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</p>
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+  </footer>
+  <script>
+  
+  
+  // iframe width="949" height="534" 
+  
+		let x1;
+		let y1;
+		let x2;
+		let y2;
+		let internerZinssatz;
+		let steigung;
+		let x1_anteil_am_internenZinssatz;
+		let x2_anteil_am_internenZinssatz;
+		let aufgabentyp=1;
+
+		function neueAufgabe() {
+		steigung = Math.floor(Math.random() * (750 - 150 + 1)) + 150;
+		internerZinssatz=Math.floor(Math.random() * (130 - 70 + 1)) + 70;
+		internerZinssatz=internerZinssatz/10;		
+		if(aufgabentyp==1){
+			// x1 soll zwischen 15% und 30% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (30 - 15 + 1)) + 15;
+			// x2 soll zwischen 40% und 60% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (60 - 40 + 1)) + 40;
+		}
+		if(aufgabentyp==2){
+			// x1 soll zwischen 110% und 130% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (130 - 110 + 1)) + 110;
+			// x2 soll zwischen 140% und 160% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (160 - 140 + 1)) + 140;
+		}
+		if(aufgabentyp==3){
+			// x1 soll zwischen 50% und 70% des internen Zinnsatzes sein:
+			x1_anteil_am_internenZinssatz = Math.floor(Math.random() * (70 - 50 + 1)) + 50;
+			// x2 soll zwischen 110% und 125% des internen Zinssatzes sein:
+			x2_anteil_am_internenZinssatz = Math.floor(Math.random() * (125 - 110 + 1)) + 110;
+		}
+		// 1. Kapitalwert berechnen:
+		x1_anteil_am_internenZinssatz = x1_anteil_am_internenZinssatz/100;
+		x1 = internerZinssatz * x1_anteil_am_internenZinssatz;
+		x1 = Math.ceil(x1);
+		y1 = (internerZinssatz-x1) * steigung;	
+		// 2. Kapitalwert berechnen:
+		x2_anteil_am_internenZinssatz = x2_anteil_am_internenZinssatz/100;
+		x2 = internerZinssatz * x2_anteil_am_internenZinssatz;
+		x2 = Math.ceil(x2);
+		if(x2==x1){
+			x2++;
+		}
+		y2 = (internerZinssatz-x2) * steigung;
+
+		
+		// Anzeigen der Werte:
+		document.getElementById("idx1").innerHTML = x1.toFixed(0)+"%";		
+		document.getElementById("idy1").innerHTML = y1.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		document.getElementById("idx2").innerHTML = x2.toFixed(0)+"%";
+		document.getElementById("idy2").innerHTML = y2.toLocaleString('de-DE',{style: 'currency',currency:'EUR',});
+		document.getElementById("tfInternerZinssatz").value = "";
+		document.getElementById("idInternerZinssatz").innerHTML = "";
+
+		// Aufgabentyp wechseln:
+		aufgabentyp++;
+		if(aufgabentyp>3){
+			aufgabentyp = 1;
+		}					
+}
+
+		function loesen() {		
+			document.getElementById("idInternerZinssatz").innerHTML = internerZinssatz.toFixed(1)+"%";
+		}
+	</script>
+  </body>
+</html>

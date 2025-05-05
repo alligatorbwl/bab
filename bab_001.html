@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<link rel="stylesheet" href="formatierung_002.css">
+	<style>
+		table, th, td { border: thin solid; }
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+	<header>
+		Betriebsabrechnungsbogen (BAB)
+	</header>
+	<main>
+		<b id="fall"></b> Ermitteln Sie die Zuschlagss&auml;tze mit den Daten der KLR.
+		<br><br>
+		<table>
+			<tr>
+				<td>
+					Fertigungsmaterial
+				</td>
+				<td style="text-align:right;">
+					<b id="fm"></b><br>
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					Fertigungsl&ouml;hne
+				</td>
+				<td style="text-align:right;">
+					<b id="fl"></b><br>
+				</td>
+			</tr>				
+			<tr>
+				<td>
+					Bestandsminderungen
+				</td>
+					<td style="text-align:right;">
+					<b id="min"></b><br>
+				</td>
+			<tr>
+				<td>
+					Bestandsmehrungen
+				</td>
+					<td style="text-align:right;">
+					<b id="mehr"></b><br>
+				</td>
+			</tr>				
+			<tr>
+				<td>
+					Sondereinzelkosten der Fertigung
+				</td>
+				<td style="text-align:right;">
+					<b id="sekdf"></b><br>
+				</td>
+			</tr>	
+		</table>
+		<br>	
+		<table>
+			<tr>
+				<td colspan="7" style="text-align:center;">
+				<strong>Betriebsabrechnungsbogen</strong>
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="2" style="text-align:center;">
+					Gemein-<br>kosten
+				</td>
+				<td rowspan="2" style="text-align:center;">
+					Zahlen<br> der KLR
+				</td>
+				<td rowspan="2" style="text-align:center;">
+					Verteilungs-<br>schl&uuml;ssel
+				</td>
+				<td colspan="4" style="text-align:center;">
+					Kostenstellen
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					Material
+				</td>
+				<td style="text-align:center;">
+					Fertigung
+				</td>
+				<td style="text-align:center;">
+					Verwaltung
+				</td>
+				<td style="text-align:center;">
+					Vertrieb
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					Betriebsstoffe
+				</td>
+				<td style="text-align:right;">
+					<b id="betriebsstoffe"></b>
+				</td>
+				<td style="text-align:center;">
+					<b id="betr_schl"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_betr_mk" style="text-align: right;">
+					<b id="betr_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_betr_fk" style="text-align: right;">
+					<b id="betr_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_betr_vwk" style="text-align: right;">
+					<b id="betr_vwk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_betr_vtk" style="text-align: right;">
+					<b id="betr_vtk"></b>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					Miete
+				</td>
+				<td style="text-align:right;">
+					<b id="miete"></b>
+				</td>
+				<td style="text-align:center;">
+					<b id="miet_schl"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_miet_mk" style="text-align: right;">
+					<b id="miet_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_miet_fk" style="text-align: right;">
+					<b id="miet_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_miet_vwk" style="text-align: right;">
+					<b id="miet_vwk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_miet_vtk" style="text-align: right;">
+					<b id="miet_vtk"></b>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					Strom
+				</td>
+				<td style="text-align:right;">
+					<b id="strom"></b>
+				</td>
+				<td style="text-align:center;">
+					<b id="stro_schl"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_stro_mk" style="text-align: right;">
+					<b id="stro_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_stro_fk" style="text-align: right;">
+					<b id="stro_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_stro_vwk" style="text-align: right;">
+					<b id="stro_vwk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_stro_vtk" style="text-align: right;">
+					<b id="stro_vtk"></b>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					Sozialkosten
+				</td>
+				<td style="text-align:right;">
+					<b id="sozialkosten"></b>
+				</td>
+				<td style="text-align:center;">
+					<b id="sozk_schl"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sozk_mk" style="text-align: right;">
+					<b id="sozk_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sozk_fk" style="text-align: right;">
+					<b id="sozk_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sozk_vwk" style="text-align: right;">
+					<b id="sozk_vwk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sozk_vtk" style="text-align: right;">
+					<b id="sozk_vtk"></b>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:right;">
+					Summen:
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sum_mk" style="text-align: right;">
+					<b id="sum_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sum_fk" style="text-align: right;">
+					<b id="sum_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sum_vw" style="text-align: right;">
+					<b id="sum_vw"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_sum_vt" style="text-align: right;">
+					<b id="sum_vt"></b>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:right;">
+					Grundwerte (100%):
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_gw_mk" style="text-align: right;">
+					<b id="gw_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_gw_fk" style="text-align: right;">
+					<b id="gw_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_gw_vw" style="text-align: right;">
+					<b id="gw_vw"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_gw_vt" style="text-align: right;">
+					<b id="gw_vt"></b>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:right;">
+					Zuschlagss&auml;tze (%):
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_z_mk" style="text-align: right;">
+					<b id="z_mk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_z_fk" style="text-align: right;">
+					<b id="z_fk"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_z_vw" style="text-align: right;">
+					<b id="z_vw"></b>
+				</td>
+				<td style="text-align:left;">
+					<input type="text" size="9" id="tf_z_vt" style="text-align: right;">
+					<b id="z_vt"></b>
+				</td>
+			</tr>
+		</table>
+		<br>
+	</main>
+	<footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">anderer Aufgabentyp</button>
+		<button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+		<a href="./index.html" class="link-button">Startseite</a>
+	</footer>
+	<script src="bab_002.js"></script>
+  </body>
+</html>

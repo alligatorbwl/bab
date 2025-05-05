@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industriekalkulation</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<link rel="stylesheet" href="formatierung_002.css">
+	<style>
+
+	</style>
+  </head>
+  <body onload="neueAufgabe()">
+  <header>
+	Industriekalkulation
+  </header>
+  <main>
+	<p>
+		<b id="fall"></b>Berechnen Sie die fehlenden Werte.
+	</p>
+	<table>
+		<tr>
+			<td>
+				Fertigungsmaterial
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_fm">
+			</td>			
+			<td style="text-align:right;">
+				<b id="fm"></b>
+			</td>
+			<td>
+			</td>	
+			<td>
+			</td>				
+		</tr>
+		<tr>
+			<td>
+				+ Materialgemeinkosten
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_mgks" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="mgks"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_mgk">
+			</td>
+			<td style="text-align:right;">
+				<b id="mgk"></b>
+			</td>	
+			<td>
+			</td>	
+			<td>
+			</td>				
+		</tr>
+		<tr>
+			<td>
+				Materialkosten
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_mk">	
+			</td>	
+			<td style="text-align:right;">
+				<b id="mk"></b>
+			</td>			
+		</tr>
+		<tr>
+			<td>
+				Fertigungsl&ouml;hne
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_fl" >	
+			</td>
+			<td style="text-align:right;">
+				<b id="fl"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>			
+		</tr>
+		<tr>
+			<td>
+				+ Fertigungsgemeinkosten
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_fgks" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="fgks"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_fgk">	
+			</td>
+			<td style="text-align:right;">
+				<b id="fgk"></b>
+			</td>
+			<td>
+			</td>			
+		</tr>
+		<tr>
+			<td>
+				+ Sondereinzelkosten der Fertigung
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_sekf">
+			</td>
+			<td style="text-align:right;">
+				<b id="sekf"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>			
+		</tr>
+		<tr>
+			<td>
+				Fertigungskosten
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_fk">
+			</td>
+			<td style="text-align:right;">
+				<b id="fk"></b>
+			</td>			
+		</tr>
+		<tr>
+			<td>
+				Herstellkosten der Rechnungsperiode
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_hkr">
+			</td>
+			<td style="text-align:right;">
+				<b id="hkr"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Bestandsminderung
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_min">
+			</td>
+			<td style="text-align:right;">
+				<b id="min"></b>
+			</td>
+			<td>
+			</td>	
+			<td>
+			</td>				
+		</tr>
+		<tr>
+			<td>
+				- Bestandsmehrung
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_mehr">
+			</td>
+			<td style="text-align:right;">
+				<b id="mehr"></b>
+			</td>
+			<td>
+			</td>	
+			<td>
+			</td>		
+		</tr>
+		<tr>
+			<td>
+				Herstellkosten des Umsatzes
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_hku">
+			</td>
+			<td style="text-align:right;">
+				<b id="hku"></b>
+			</td>		
+		</tr>
+		<tr>
+			<td>
+				+ Verwaltungsgemeinkosten
+			</td>
+			<td>
+			<input type="text" size="8" id="tf_vwgks" style="text-align:center">
+			</td>
+			<td style="text-align:right;">
+				<b id="vwgks"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_vwk">
+				
+			</td>
+			<td style="text-align:right;">
+				<b id="vwk"></b>
+			</td>	
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Vertriebsgemeinkosten
+			</td>
+			<td>
+			<input type="text" size="8" id="tf_vtgks" style="text-align:center">
+			</td>
+			<td style="text-align:right;">
+				<b id="vtgks"></b>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_vtk">
+				
+			</td>
+			<td style="text-align:right;">
+				<b id="vtk"></b>
+			</td>	
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Sondereinzelkosten des Vertriebs
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_sekv">
+				
+			</td>
+			<td style="text-align:right;">
+				<b id="sekv"></b>
+			</td>
+			<td>
+			</td>	
+			<td>
+			</td>			
+		</tr>
+		<tr> 
+			<td>
+				Selbstkosten
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l3">
+			</td>
+			<td style="text-align:right;">
+				<b id="l3"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Gewinnzuschlag
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_g" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="g"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l4">
+			</td>
+			<td style="text-align:right;">
+				<b id="l4"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Barverkaufspreis
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l5">
+			</td>
+			<td style="text-align:right;">
+				<b id="l5"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Kundenskonto
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_s" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="s"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l6">
+			</td>
+			<td style="text-align:right;">
+				<b id="l6"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Vertreterprovision
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_p" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="p"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l7">
+			</td>
+			<td style="text-align:right;">
+				<b id="l7"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Zielverkaufspreis
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l8">
+			</td>
+			<td style="text-align:right;">
+				<b id="l8"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				+ Kundenrabatt
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_r" style="text-align:center">
+			</td>
+			<td style="text-align:center;">
+				<b id="r"></b>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>	
+			<td>
+				<input type="text" size="8" id="tf_l9">
+			</td>
+			<td style="text-align:right;">
+				<b id="l9"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Listenverkaufspreis
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<input type="text" size="8" id="tf_l10">
+			</td>
+			<td style="text-align:right;">
+				<b id="l10"></b>
+			</td>
+		</tr>
+	</table>
+	
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">anderer Aufgabentyp</button>
+		<button onclick="gleicheAufgabe()">gleicher Aufgabentyp</button>
+		<a href="./index.html" class="link-button">Startseite</a>
+  </footer>
+  <script>
+// = (Math.floor(Math.random() * (max +1 -min) ) + min);
+
+function runden(number, nachkommastellen) {
+    // Überprüfe, ob nachkommastellen ein gültiger Wert ist
+    nachkommastellen = typeof nachkommastellen !== 'undefined' ? nachkommastellen : 2;
+
+    // Runde die Zahl auf die angegebene Anzahl von Nachkommastellen
+    const gerundeterWert = Math.round(number * Math.pow(10, nachkommastellen)) / Math.pow(10, nachkommastellen);
+
+	return gerundeterWert;
+}
+
+let fall=0;
+let fm 		= 0;
+let mgks 	= 0;
+let mgk 	= 0;
+let mk 		= 0;
+let fl 		= 0;
+let fgks 	= 0;
+let fgk 	= 0;
+let sekf 	= 0;
+let fk 		= 0;
+let hkr 	= 0;
+let min  	= 0;
+let mehr 	= 0; 
+let hku		= 0;
+let vwgks	= 0;
+let	vwk		= 0;
+let vtgks	= 0;
+let vtk	 	= 0;
+let sekv	= 0;
+let selbstkosten_der_rechnungsperiode = 0;
+let g=0;
+let s=0;
+let p=0;
+let r=0;
+let SE = 0;
+let G = 0;
+let B = 0;
+let S = 0;
+let P = 0;
+let Z = 0;
+let R = 0;
+let L = 0;		
+
+function gleicheAufgabe(){
+	fall--;
+	neueAufgabe();
+}
+
+function neueAufgabe() {
+	fall++;
+	if(fall>5){
+		alert("Alle Aufgabentypen wurden angezeigt. Das Programm beginnt von vorne.");
+		fall=1;
+	}
+	fm 		= (Math.floor(Math.random() * (60 +1 -20) ) +20) * 30;
+	mgks 	= (Math.floor(Math.random() * (25 +1 -5) ) + 5)  * 1;
+	mgk 	= runden( fm*mgks/100 );  
+    mk 		= fm+mgk;
+    fl 		= (Math.floor(Math.random() * (60 +1 -20) ) +20) * 40;
+    fgks 	= (Math.floor(Math.random() * (15 +1 -5) ) + 5)  * 10;
+    fgk 	= runden( fl*fgks/100 );
+    sekf 	= (Math.floor(Math.random() * (5 +1 -0) ) + 0)  * 100;
+    fk 		= fl+fgk+sekf;
+    hkr 	= mk+fk;
+    min  	= runden( (hkr/(Math.floor(Math.random() * (9 +1 -5) ) + 5)),0 );
+    mehr 	= runden( (hkr/(Math.floor(Math.random() * (9 +1 -5) ) + 5)),0 ); 
+	if((fall%3)==2){
+		mehr=0;
+		min=0;
+	}
+	if((fall%3)==1){
+		min=0;
+	}
+	if((fall%3)==0){
+		mehr=0;
+	}
+		
+    hku		= hkr+min-mehr;
+    vwgks	= (Math.floor(Math.random() * (25 +1 -5) ) + 5)  * 1;
+	vwk		= runden( hkr*vwgks/100 );
+    vtgks	= (Math.floor(Math.random() * (25 +1 -5) ) + 5)  * 1;
+    vtk	 	= runden( hku*vtgks/100 );
+    sekv	= runden( (Math.floor(Math.random() * (1 +1 -0) ) + 0)  * (Math.floor(Math.random() * (100 +1 -50) ) + 50) );
+    selbstkosten_der_rechnungsperiode = runden( hku+vwk+vtk+sekv ); 
+
+//	   Math.floor(Math.random() * (max - min) ) + min;
+//     h=(Math.floor(Math.random() * (30 - 10)) + 10);
+    g=(Math.floor(Math.random() * ( 6 -  1)) + 1)*5;
+    s=(Math.floor(Math.random() * ( 5 -  2)) + 2);
+    p=(Math.floor(Math.random() * ( 9 -  5)) + 5);
+    r=(Math.floor(Math.random() * ( 5 -  1)) + 1)*5;
+    einstandspreis=(Math.floor(Math.random() * ( 18 -  1)) + 1)*50;
+
+//     H = Math.round(einstandspreis*h)/100;
+    SE = selbstkosten_der_rechnungsperiode;
+    G = Math.round(SE*g)/100;
+    B = runden( SE + G );
+    S = runden(B/(100-s-p)*s);
+    P = runden(B/(100-s-p)*p);
+    Z = runden(B+S+P);
+    R = runden(Z/(100-r)*r);
+    L = runden(Z+R);
+
+document.getElementById("fall").innerHTML = "Fall "+fall+": ";
+
+// ALLE TEXTFELDER LÖSCHEN:
+document.getElementById("tf_mgks").value = "%";
+document.getElementById("tf_fgks").value = "%";
+document.getElementById("tf_vwgks").value = "%";
+document.getElementById("tf_vtgks").value = "%";
+document.getElementById("tf_g").value = "%";
+document.getElementById("tf_s").value = "%";
+document.getElementById("tf_p").value = "%";
+document.getElementById("tf_r").value = "%";
+document.getElementById("tf_fm").value = "";
+document.getElementById("tf_mgk").value = "";
+document.getElementById("tf_mk").value = "";
+document.getElementById("tf_fl").value = "";
+document.getElementById("tf_fgk").value = "";
+document.getElementById("tf_sekf").value = "";
+document.getElementById("tf_fk").value = "";
+document.getElementById("tf_hkr").value = "";
+document.getElementById("tf_min").value = "";
+document.getElementById("tf_mehr").value = "";
+document.getElementById("tf_hku").value = "";
+document.getElementById("tf_vwk").value = "";
+document.getElementById("tf_vtk").value = "";
+document.getElementById("tf_sekv").value = "";
+document.getElementById("tf_l3").value = "";
+document.getElementById("tf_l4").value = "";
+document.getElementById("tf_l5").value = "";
+document.getElementById("tf_l6").value = "";
+document.getElementById("tf_l7").value = "";
+document.getElementById("tf_l8").value = "";
+document.getElementById("tf_l9").value = "";
+document.getElementById("tf_l10").value= "";
+
+// fallweise Textfelder mit Werten zum Weiterrechnen anzeigen:
+if(fall==1){
+	document.getElementById("tf_mgks").value = mgks+"%";
+	document.getElementById("tf_fgks").value = fgks+"%";
+	document.getElementById("tf_vwgks").value = vwgks+"%";
+	document.getElementById("tf_vtgks").value = vtgks+"%";
+	document.getElementById("tf_g").value = g+"%";
+	document.getElementById("tf_s").value = s+"%";
+	document.getElementById("tf_p").value = p+"%";
+	document.getElementById("tf_r").value = r+"%";
+	document.getElementById("tf_fm").value = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mgk").value = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mk").value = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fl").value = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fgk").value = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekf").value = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fk").value = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hkr").value = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_min").value = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mehr").value = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hku").value = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_vwk").value = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_vtk").value = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekv").value = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+/*
+	document.getElementById("tf_l3").value = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l4").value = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l5").value = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l6").value = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l7").value = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l8").value = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l9").value = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l10").value = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );	
+*/
+}
+if(fall==2){
+/*	document.getElementById("tf_mgks").value = mgks+"%";
+	document.getElementById("tf_fgks").value = fgks+"%";
+	document.getElementById("tf_vwgks").value = vwgks+"%";
+	document.getElementById("tf_vtgks").value = vtgks+"%";
+	document.getElementById("tf_g").value = g+"%";
+	document.getElementById("tf_s").value = s+"%";
+	document.getElementById("tf_p").value = p+"%";
+	document.getElementById("tf_r").value = r+"%";
+*/
+	document.getElementById("tf_fm").value = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mgk").value = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mk").value = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fl").value = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fgk").value = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekf").value = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fk").value = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_hkr").value = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_min").value = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mehr").value = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_hku").value = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_vwk").value = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_vtk").value = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekv").value = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l3").value = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l4").value = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l5").value = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l6").value = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l7").value = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l8").value = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l9").value = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l10").value = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );	
+}
+if(fall==3){
+/*	document.getElementById("tf_mgks").value = mgks+"%";
+	document.getElementById("tf_fgks").value = fgks+"%";
+	document.getElementById("tf_vwgks").value = vwgks+"%";
+	document.getElementById("tf_vtgks").value = vtgks+"%";
+	document.getElementById("tf_g").value = g+"%";
+	document.getElementById("tf_s").value = s+"%";
+	document.getElementById("tf_p").value = p+"%";
+	document.getElementById("tf_r").value = r+"%";
+*/
+	document.getElementById("tf_fm").value = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mgk").value = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mk").value = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fl").value = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fgk").value = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekf").value = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fk").value = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_hkr").value = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_min").value = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mehr").value = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hku").value = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_vwk").value = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_vtk").value = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekv").value = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l3").value = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l4").value = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l5").value = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l6").value = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l7").value = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l8").value = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_l9").value = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l10").value = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );	
+}
+if(fall==4){
+/*	document.getElementById("tf_mgks").value = mgks+"%";
+	document.getElementById("tf_fgks").value = fgks+"%";
+	document.getElementById("tf_vwgks").value = vwgks+"%";
+	document.getElementById("tf_vtgks").value = vtgks+"%";
+	document.getElementById("tf_g").value = g+"%";
+	document.getElementById("tf_s").value = s+"%";
+	document.getElementById("tf_p").value = p+"%";
+	document.getElementById("tf_r").value = r+"%";
+*/
+	document.getElementById("tf_fm").value = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mgk").value = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mk").value = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fl").value = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fgk").value = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekf").value = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fk").value = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hkr").value = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_min").value = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mehr").value = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hku").value = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_vwk").value = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_vtk").value = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekv").value = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_l3").value = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l4").value = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l5").value = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_l6").value = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l7").value = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l8").value = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_l9").value = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l10").value = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );	
+}
+
+if(fall==5){
+	document.getElementById("tf_mgks").value = mgks+"%";
+	document.getElementById("tf_fgks").value = fgks+"%";
+	document.getElementById("tf_vwgks").value = vwgks+"%";
+	document.getElementById("tf_vtgks").value = vtgks+"%";
+	document.getElementById("tf_g").value = g+"%";
+	document.getElementById("tf_s").value = s+"%";
+	document.getElementById("tf_p").value = p+"%";
+	document.getElementById("tf_r").value = r+"%";
+//	document.getElementById("tf_fm").value = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mgk").value = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_mk").value = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_fl").value = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fgk").value = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekf").value = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_fk").value = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_hkr").value = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_min").value = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_mehr").value = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_hku").value = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_vwk").value = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+//	document.getElementById("tf_vtk").value = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_sekv").value = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+/*
+	document.getElementById("tf_l3").value = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l4").value = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l5").value = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l6").value = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l7").value = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l8").value = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	document.getElementById("tf_l9").value = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+*/	
+document.getElementById("tf_l10").value = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );	
+	
+}
+
+
+// LÖSUNGEN löschen:
+document.getElementById("g").innerHTML = "";
+document.getElementById("s").innerHTML = "";
+document.getElementById("p").innerHTML = "";
+document.getElementById("r").innerHTML = "";
+document.getElementById("mgks").innerHTML = "";
+document.getElementById("fgks").innerHTML = "";
+document.getElementById("vwgks").innerHTML = "";
+document.getElementById("vtgks").innerHTML = "";
+document.getElementById("fm").innerHTML = "";
+document.getElementById("mgk").innerHTML = "";
+document.getElementById("mk").innerHTML = "";
+document.getElementById("fl").innerHTML = "";
+document.getElementById("fgk").innerHTML = "";
+document.getElementById("sekf").innerHTML = "";
+document.getElementById("fk").innerHTML = "";
+document.getElementById("hkr").innerHTML = "";
+document.getElementById("min").innerHTML = "";
+document.getElementById("mehr").innerHTML = "";
+document.getElementById("hku").innerHTML = "";
+document.getElementById("vwk").innerHTML = "";
+document.getElementById("vtk").innerHTML = "";
+document.getElementById("sekv").innerHTML = "";
+document.getElementById("l3").innerHTML = "";
+document.getElementById("l4").innerHTML = "";
+document.getElementById("l5").innerHTML = "";
+document.getElementById("l6").innerHTML = "";
+document.getElementById("l7").innerHTML = "";
+document.getElementById("l8").innerHTML = "";
+document.getElementById("l9").innerHTML = "";
+document.getElementById("l10").innerHTML = "";
+
+//	window.location.reload();
+}
+
+
+// Lösungen:
+function loesen() {
+	document.getElementById("g").innerHTML = g+"%";
+	if( document.getElementById("tf_g").value.replace(".", "").replace(",", ".").replace("%", "") != g ){
+			document.getElementById("g").innerHTML = "<span class='fehler'>"+g.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}	
+	document.getElementById("s").innerHTML = s+"%";
+	if(document.getElementById("tf_s").value.replace(".", "").replace(",", ".").replace("%", "")!=s){
+			document.getElementById("s").innerHTML = "<span class='fehler'>"+s.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("p").innerHTML = p+"%";
+	if(document.getElementById("tf_p").value.replace(".", "").replace(",", ".").replace("%", "")!=p){
+			document.getElementById("p").innerHTML = "<span class='fehler'>"+p.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("r").innerHTML = r+"%";
+	if(document.getElementById("tf_r").value.replace(".", "").replace(",", ".").replace("%", "")!=r){
+			document.getElementById("r").innerHTML = "<span class='fehler'>"+r.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("mgks").innerHTML = mgks+"%";
+	if(document.getElementById("tf_mgks").value.replace(".", "").replace(",", ".").replace("%", "")!=mgks){
+			document.getElementById("mgks").innerHTML = "<span class='fehler'>"+mgks.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("fgks").innerHTML = fgks+"%";
+	if(document.getElementById("tf_fgks").value.replace(".", "").replace(",", ".").replace("%", "")!=fgks){
+			document.getElementById("fgks").innerHTML = "<span class='fehler'>"+fgks.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("vwgks").innerHTML = vwgks+"%";
+	if(document.getElementById("tf_vwgks").value.replace(".", "").replace(",", ".").replace("%", "")!=vwgks){
+			document.getElementById("vwgks").innerHTML = "<span class='fehler'>"+vwgks.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("vtgks").innerHTML = vtgks+"%";
+	if(document.getElementById("tf_vtgks").value.replace(".", "").replace(",", ".").replace("%", "")!=vtgks){
+			document.getElementById("vtgks").innerHTML = "<span class='fehler'>"+vtgks.toLocaleString( 'de-DE',{ minimumFractionDigits: 0, maximumFractionDigits: 0 } )+"%</span>";
+		}
+	document.getElementById("fm").innerHTML = fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_fm").value.replace(".", "").replace(",", ".").replace("%", "")!=fm){
+			document.getElementById("fm").innerHTML = "<span class='fehler'>"+fm.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}	
+	document.getElementById("mgk").innerHTML = mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_mgk").value.replace(".", "").replace(",", ".").replace("%", "")!=mgk){
+			document.getElementById("mgk").innerHTML = "<span class='fehler'>"+mgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("mk").innerHTML = mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_mk").value.replace(".", "").replace(",", ".").replace("%", "")!=mk){
+			document.getElementById("mk").innerHTML = "<span class='fehler'>"+mk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("fl").innerHTML = fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_fl").value.replace(".", "").replace(",", ".").replace("%", "")!=fl){
+			document.getElementById("fl").innerHTML = "<span class='fehler'>"+fl.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("fgk").innerHTML = fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_fgk").value.replace(".", "").replace(",", ".").replace("%", "")!=fgk){
+			document.getElementById("fgk").innerHTML = "<span class='fehler'>"+fgk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("sekf").innerHTML = sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_sekf").value.replace(".", "").replace(",", ".").replace("%", "")!=sekf){
+			document.getElementById("sekf").innerHTML = "<span class='fehler'>"+sekf.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("fk").innerHTML = fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_fk").value.replace(".", "").replace(",", ".").replace("%", "")!=fk){
+			document.getElementById("fk").innerHTML = "<span class='fehler'>"+fk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("hkr").innerHTML = hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_hkr").value.replace(".", "").replace(",", ".").replace("%", "")!=hkr){
+			document.getElementById("hkr").innerHTML = "<span class='fehler'>"+hkr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("min").innerHTML = min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_min").value.replace(".", "").replace(",", ".").replace("%", "")!=min){
+			document.getElementById("min").innerHTML = "<span class='fehler'>"+min.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("mehr").innerHTML = mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_mehr").value.replace(".", "").replace(",", ".").replace("%", "")!=mehr){
+			document.getElementById("mehr").innerHTML = "<span class='fehler'>"+mehr.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("hku").innerHTML = hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_hku").value.replace(".", "").replace(",", ".").replace("%", "")!=hku){
+			document.getElementById("hku").innerHTML = "<span class='fehler'>"+hku.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("vwk").innerHTML = vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_vwk").value.replace(".", "").replace(",", ".").replace("%", "")!=vwk){
+			document.getElementById("vwk").innerHTML = "<span class='fehler'>"+vwk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("vtk").innerHTML = vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_vtk").value.replace(".", "").replace(",", ".").replace("%", "")!=vtk){
+			document.getElementById("vtk").innerHTML = "<span class='fehler'>"+vtk.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("sekv").innerHTML = sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_sekv").value.replace(".", "").replace(",", ".").replace("%", "")!=sekv){
+			document.getElementById("sekv").innerHTML = "<span class='fehler'>"+sekv.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+
+	document.getElementById("l3").innerHTML = SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l3").value.replace(".", "").replace(",", ".").replace("%", "")!=SE){
+			document.getElementById("l3").innerHTML = "<span class='fehler'>"+SE.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l4").innerHTML = G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l4").value.replace(".", "").replace(",", ".").replace("%", "")!=G){
+			document.getElementById("l4").innerHTML = "<span class='fehler'>"+G.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l5").innerHTML = B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l5").value.replace(".", "").replace(",", ".").replace("%", "")!=B){
+			document.getElementById("l5").innerHTML = "<span class='fehler'>"+B.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l6").innerHTML = S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l6").value.replace(".", "").replace(",", ".").replace("%", "")!=S){
+			document.getElementById("l6").innerHTML = "<span class='fehler'>"+S.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l7").innerHTML = P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l7").value.replace(".", "").replace(",", ".").replace("%", "")!=P){
+			document.getElementById("l7").innerHTML = "<span class='fehler'>"+P.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l8").innerHTML = Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l8").value.replace(".", "").replace(",", ".").replace("%", "")!=Z){
+			document.getElementById("l8").innerHTML = "<span class='fehler'>"+Z.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l9").innerHTML = R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l9").value.replace(".", "").replace(",", ".").replace("%", "")!=R){
+			document.getElementById("l9").innerHTML = "<span class='fehler'>"+R.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+		
+	document.getElementById("l10").innerHTML = L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } );
+	if(document.getElementById("tf_l10").value.replace(".", "").replace(",", ".").replace("%", "")!=L){
+			document.getElementById("l10").innerHTML = "<span class='fehler'>"+L.toLocaleString( 'de-DE',{ minimumFractionDigits: 2, maximumFractionDigits: 2 } )+"</span>";
+		}
+}				
+	</script>
+  </body>
+</html>

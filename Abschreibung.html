@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verkauf von Anlageverm&ouml;gen</title>
+	<link rel="stylesheet" href="formatierung.css">
+	<style>
+
+	</style>
+  </head>
+ <!--   
+  <body onload="neueAufgabe()">
+ -->
+  <body>
+  <header>
+	Verkauf von Anlageverm&ouml;gen
+  </header>
+  <main>
+	<p>	
+		Am <b id="vDatum"></b>
+		wurde ein Anlagegut f&uuml;r
+		<b id="vP"></b>		
+		<b id="vZzgl"></b> auf Ziel verkauft.
+		
+		<br>
+		
+		Die Anschaffungskosten betrugen 
+		<b id="ak"></b>
+		<b id="aZzgl"></b> und die 
+		<br>
+		Anschaffung fand am 
+		<b id="aDatum"></b> statt.
+		
+		Die Nutzungsdauer betr&auml;gt 
+		<br>laut AfA-Tabelle
+		<b id="nd"></b> Jahre.
+	</p>
+		Berechnen Sie folgende Werte:
+	</p>
+	
+ 	
+	<table>
+		<tr>
+			<td>
+				1. linearer Abschreibungsbetrag pro Jahr:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf1">
+			</td>
+			<td style="text-align:right;">
+				<b id="l1"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				2. Abschreibungsbetrag im Anschaffungsjahr:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf2">
+			</td>
+			<td style="text-align:right;">
+				<b id="l2"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				3. Abschreibungsbetrag zwischen Anschaffungs- und Verkaufsjahr:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf3">
+			</td>
+			<td style="text-align:right;">
+				<b id="l3"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				4. Abschreibungsbetrag im Verkaufsjahr:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf4">
+			</td>
+			<td style="text-align:right;">
+				<b id="l4"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				5. Abschreibungsbetr&auml;ge insgesamt bis zum Verkauf:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf5">
+			</td>
+			<td style="text-align:right;">
+				<b id="l5"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				6. Buchwert am Verkaufsdatum:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf6">
+			</td>
+			<td style="text-align:right;">
+				<b id="l6"></b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				7. Buchgewinn:
+			</td>
+			<td>
+				<input type="text" size="8" id="tf7">
+			</td>
+			<td style="text-align:right;">
+				<b id="l7"></b>
+			</td>
+		</tr>
+	</table>
+	
+  </main>
+  <footer>
+		<button onclick="loesen()">L&ouml;sung</button>
+		<button onclick="neueAufgabe()">neue Aufgabe</button>
+		<a href="./index.html">
+			<button>Startseite</button>
+		</a>
+  </footer>
+  <script>
+		let zzgl=Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+		let aZzgl = "+++";
+		let vZzgl = "+++";
+		switch(zzgl) {
+			case 1:
+			aZzgl = "zzgl."
+			vZzgl = "zzgl."
+			break;
+			case 2:
+			aZzgl = "einschl."
+			vZzgl = "einschl."
+			break;
+			case 3:
+			aZzgl = "zzgl."
+			vZzgl = "einschl."
+			break;
+			case 4:
+			aZzgl = "einschl."
+			vZzgl = "zzgl."
+			break;
+		} 
+		document.getElementById("aZzgl").innerHTML = aZzgl+" 19% Ust.";
+		document.getElementById("vZzgl").innerHTML = vZzgl+" 19% Ust.";
+
+		let ak = 1.11*(Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000);
+		if(aZzgl=="zzgl."){
+			document.getElementById("ak").innerHTML = ak.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+		}else{
+			ak*=1.19;
+			document.getElementById("ak").innerHTML = ak.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+			ak/=1.19;
+		}
+		
+		
+		let nd = Math.floor(Math.random() * (11 - 7 + 1)) + 7;
+		document.getElementById("nd").innerHTML = nd;
+		
+		let jAfa = ak/nd;
+		let mAfa = jAfa/12;
+		
+		
+		let jetzt = new Date();
+		let dif_aDatum = (Math.floor(Math.random() * (1825 - 730 + 1)) + 730);
+		let aDatum = new Date(jetzt);
+		aDatum.setDate(aDatum.getDate()-dif_aDatum);
+		document.getElementById("aDatum").innerHTML = aDatum.getDate()+"."+(aDatum.getMonth()+1)+"."+aDatum.getFullYear();
+		
+		let dif_vDatum = (Math.floor(Math.random() * (350 - 40 + 1)) + 40);
+		let vDatum = new Date(jetzt);
+		vDatum.setDate(vDatum.getDate()-dif_vDatum);
+		document.getElementById("vDatum").innerHTML = vDatum.getDate()+"."+(vDatum.getMonth()+1)+"."+vDatum.getFullYear();
+		
+		
+		
+		let lAfa = ak/nd;
+			lAfa*=100;
+			lAfa = Math.round(lAfa);
+			lAfa/=100;
+		let aMonat = aDatum.getMonth()+1;
+		let aJ_Afa = lAfa/12*(13-aMonat); 
+			aJ_Afa*=100;
+			aJ_Afa = Math.round(aJ_Afa);
+			aJ_Afa/=100;
+		let zJ_Afa = (vDatum.getFullYear() - aDatum.getFullYear() -1) * lAfa;
+		let vMonat = vDatum.getMonth()+1;
+		let vJ_Afa = lAfa/12*(vMonat-1);
+			vJ_Afa*=100;
+			vJ_Afa = Math.round(vJ_Afa);
+			vJ_Afa/=100;
+		let summe_Afa = aJ_Afa+zJ_Afa+vJ_Afa;
+			summe_Afa*=100;
+			summe_Afa = Math.round(summe_Afa);
+			summe_Afa/=100;		
+		let buchwert = ak-summe_Afa;
+			buchwert*=100;
+			buchwert = Math.round(buchwert);
+			buchwert/=100;	
+		
+		let buchgewinnProzent = (Math.floor(Math.random() * (20 - 5 + 1)) + 5);
+		let buchgewinn = buchwert * buchgewinnProzent/100;
+			buchgewinn*=100;
+			buchgewinn = Math.round(buchgewinn);
+			buchgewinn/=100;
+			if((Math.floor(Math.random() * (2 - 1 + 1)) + 1)>1){
+				buchgewinn*=-1;
+			};
+			
+		let vP = buchwert + buchgewinn;
+		if(vZzgl=="einschl."){
+			vP*=1.19;
+		}
+		vP*=100;
+		vP = Math.round(vP);
+		vP/=100;
+		document.getElementById("vP").innerHTML = vP.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});
+		
+		
+		// LÖSUNGEN löschen:
+		document.getElementById("l1").innerHTML = "";
+		document.getElementById("l2").innerHTML = "";
+		document.getElementById("l3").innerHTML = "";
+		document.getElementById("l4").innerHTML = "";
+		document.getElementById("l5").innerHTML = "";
+		document.getElementById("l6").innerHTML = "";
+		document.getElementById("l7").innerHTML = "";
+
+
+		function loesen() {
+		// Lösungen:
+		
+
+		document.getElementById("l1").innerHTML = lAfa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l2").innerHTML = aJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l3").innerHTML = zJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l4").innerHTML = vJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l5").innerHTML = summe_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l6").innerHTML = buchwert.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+		document.getElementById("l7").innerHTML = buchgewinn.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',});;
+
+		
+		if(document.getElementById("tf1").value.replace(",", ".")!=lAfa){
+			document.getElementById("l1").innerHTML = "<span class='fehler'>"+lAfa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf2").value.replace(",", ".")!=aJ_Afa){
+			document.getElementById("l2").innerHTML = "<span class='fehler'>"+aJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf3").value.replace(",", ".")!=zJ_Afa){
+			document.getElementById("l3").innerHTML = "<span class='fehler'>"+zJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf4").value.replace(",", ".")!=vJ_Afa){
+			document.getElementById("l4").innerHTML = "<span class='fehler'>"+vJ_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf5").value.replace(",", ".")!=summe_Afa){
+			document.getElementById("l5").innerHTML = "<span class='fehler'>"+summe_Afa.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf6").value.replace(",", ".")!=buchwert){
+			document.getElementById("l6").innerHTML = "<span class='fehler'>"+buchwert.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		if(document.getElementById("tf7").value.replace(",", ".")!=buchgewinn){
+			document.getElementById("l7").innerHTML = "<span class='fehler'>"+buchgewinn.toLocaleString('de-DE',{  style: 'currency',currency: 'EUR',})+"</span>";
+		}
+		
+		
+		}		
+		
+		function neueAufgabe() {
+			document.getElementById("tf1").value = "";
+			document.getElementById("tf2").value = "";
+			document.getElementById("tf3").value = "";
+			document.getElementById("tf4").value = "";
+			document.getElementById("tf5").value = "";	
+			document.getElementById("tf6").value = "";
+			document.getElementById("tf7").value = "";	
+			window.location.reload();
+		}
+		
+	</script>
+  </body>
+</html>
