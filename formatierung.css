@@ -1,0 +1,167 @@
+/* FORMATIERUNG vom 2023-11-26 nach ChatGPT-Optimierung. */	
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50; /* Dunkelgrauer Hintergrund */
+    color: #ecf0f1; /* Helle Schriftfarbe */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+	
+    background-color: #2c3e50; /* Dunkelblau für den Header */
+    color: #ecf0f1;
+    padding: 1rem;
+    text-align: center;
+	font-size: 2em;
+}
+
+main {
+    padding: 20px;
+	background-color: #502c4d;   /* lila */
+	background-color: #502c2c;   /* rot-braun */
+	background-color: #2c4e5a;
+	color: #fff;
+}
+
+footer {
+	/*
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	*/
+	
+	  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
+	
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        padding: 1.5rem;
+        text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: #ecf0f1;
+}
+
+.fehler{
+		color: #FF8069;
+}
+				
+b{		color: #ffc652;	 /* neues Gelb */						
+}
+		
+input{	font-family: Arial;
+		font-size: 1em;
+		font-weight: bold;
+		background-color: #000000;
+		background-color: #ecf0f1; /* neu hell, fast weiß*/
+		background-color: #133540; /* neu dunkel*/
+		border: 0px;
+		color: magenta;
+		color: #025568; /* neu zu fast weißem Hintergrund*/
+		color: #ecf0f1;
+		text-align: right;	
+		padding: 0.2em 0.2em;
+}
+									
+p {
+    line-height: 1.6;
+}
+
+table {
+   // width: 100%;
+    border-collapse: collapse;
+ //   margin-bottom: 20px;
+}
+
+td, th {
+    padding: 0.1em;
+ //   border: 1px solid #37474f; /* Dunkelgrauer Rand für Tabellenzellen */
+}
+
+.text-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {	color: #ecf0f1;
+}
+
+button, .link-button {
+				background-color: #2c3e50;
+				
+				border: 2px solid #ecf0f1;
+				border-radius: 0.9em;				
+
+				cursor: pointer;
+				
+				color: #ecf0f1;
+				color: var(--color);
+
+				display: inline-block;
+				
+				font-size: 1em;				
+				
+				padding: 0.2em 0.2em;
+				padding: 10px 20px;
+				
+				text-align: center;
+				text-decoration: none;
+	
+				transition: background-color 0.3s ease-in-out;
+}
+
+button:hover, .link-button:hover {
+     background-color: #ecf0f1;
+	 color: #2c3e50;
+}		
+
+.spalteA { grid-area: spalteA; }
+.spalteB { grid-area: spalteB; }
+.grid_2spalten { display: grid;
+				 grid-template-areas: 'spalteA spalteB';
+				 text-align: center;
+}
+
+
+
+
+@media print {
+  body,main,header,footer {
+    color: black;
+    background-color: #990000;
+	font-family: arial;
+  }
+  table,th,td,tr{
+	  border: 1px solid #000000;
+  }
+  .fehler{
+		color: #ff0000;
+	//	font-family: Courier New;
+		font-style: italic;		
+	}
+  input{
+	  border: 1px;
+  }
+  footer {
+    display: none; /* Verstecke den Footer beim Drucken */
+  }
+  b{ color: black;
+  }
+}
+
